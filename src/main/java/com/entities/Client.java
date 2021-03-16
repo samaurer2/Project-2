@@ -1,2 +1,4 @@
-package com.entities;public class Client {
+package com.entities;
+
+public class Client {
 }

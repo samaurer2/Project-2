@@ -1,2 +1,4 @@
-package com.entities;public class Admin {
+package com.entities;
+
+public class Admin extends Technician{
 }

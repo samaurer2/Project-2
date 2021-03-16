@@ -1,2 +1,4 @@
-package com.entities;public class Technician {
+package com.entities;
+
+public class Technician {
 }

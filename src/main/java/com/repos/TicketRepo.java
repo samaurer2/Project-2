@@ -1,2 +1,4 @@
-package com.repos;public interface TicketRepo {
+package com.repos;
+
+public interface TicketRepo {
 }

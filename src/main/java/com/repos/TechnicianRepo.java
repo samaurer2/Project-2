@@ -1,2 +1,4 @@
-package com.repos;public interface TechnicianRepo {
+package com.repos;
+
+public interface TechnicianRepo {
 }

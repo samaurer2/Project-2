@@ -1,13 +1,13 @@
-package com.app.SpringTicketTrackerApi;
+package com.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringTicketTrackerApiApplication {
+public class App {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringTicketTrackerApiApplication.class, args);
+		SpringApplication.run(App.class, args);
 	}
 
 }

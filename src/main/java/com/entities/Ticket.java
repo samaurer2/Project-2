@@ -1,2 +1,4 @@
-package com.entities;public class Ticket {
+package com.entities;
+
+public class Ticket {
 }

@@ -1,2 +1,4 @@
-package com.repos;public interface ClientRepo {
+package com.repos;
+
+public interface ClientRepo {
 }

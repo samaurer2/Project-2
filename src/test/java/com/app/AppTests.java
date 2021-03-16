@@ -1,10 +1,10 @@
-package com.app.SpringTicketTrackerApi;
+package com.app;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringTicketTrackerApiApplicationTests {
+class AppTests {
 
 	@Test
 	void contextLoads() {
