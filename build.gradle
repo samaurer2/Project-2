@@ -26,6 +26,9 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.jenkins-ci.plugins/jacoco
+	implementation group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '2.2.1'
+
 }
 
 test {
