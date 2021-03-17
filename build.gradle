@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id "org.sonarqube" version "3.1.1"
+	id 'jacoco'
 }
 
 sonarqube {
@@ -26,11 +27,6 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// https://mvnrepository.com/artifact/org.jenkins-ci.plugins/jacoco
-	// https://mvnrepository.com/artifact/org.jenkins-ci.plugins/jacoco
-	compile group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '3.1.1'
-
-
 }
 
 test {
