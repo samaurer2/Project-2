@@ -27,7 +27,9 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/org.jenkins-ci.plugins/jacoco
-	compile group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '2.2.1'
+	// https://mvnrepository.com/artifact/org.jenkins-ci.plugins/jacoco
+	compile group: 'org.jenkins-ci.plugins', name: 'jacoco', version: '3.1.1'
+
 
 }
 
