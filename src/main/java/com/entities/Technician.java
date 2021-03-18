@@ -24,7 +24,7 @@ public class Technician {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role")
+    @Column(name = "role" ,insertable = false, updatable = false)
     private String type;
 
 
