@@ -17,13 +17,13 @@ public class Ticket {
     @Column(name="description", nullable = false)
     private String description;
 
-    @Column(name="Priority")
+    @Column(name="priority")
     @Enumerated(value = EnumType.STRING)
     @ColumnDefault("LOW")
     private Priority priority;
 
     //Todo many-to-many annotation
-    private List<Integer> technicians;
+//    private List<Integer> technicians;
 
     @Column(name="c_id", nullable = false)
     private Integer clientId;
