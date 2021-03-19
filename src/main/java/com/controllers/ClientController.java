@@ -25,8 +25,6 @@ public class ClientController {
     @PostMapping("/client/login")
     public String clientLogin(@RequestBody Client client){
 
-        System.out.println(client);
-        logger.info(client.toString());
         String jwt = JwtUtil.generateJwtForClient(client.getUserName(), client.getPassword());
         System.out.println(jwt);
         if(jwt != null){
