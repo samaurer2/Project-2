@@ -1,4 +1,4 @@
-package com.app.utiltests;
+package com.app.repotests;
 
 import com.entities.TechTickPK;
 import com.entities.TechTicket;
