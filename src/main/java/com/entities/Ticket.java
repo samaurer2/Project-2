@@ -22,10 +22,12 @@ public class Ticket {
     @ColumnDefault("LOW")
     private Priority priority;
 
+
     //Todo many-to-many annotation
+
 //    private List<Integer> technicians;
 
-    @Column(name="c_id", nullable = false)
+    @Column(name="c_id")
     private Integer clientId;
 
     public Ticket() {
@@ -34,6 +36,7 @@ public class Ticket {
     public Ticket(String description, Integer clientId) {
         this.description = description;
         this.clientId = clientId;
+        this.priority = Priority.LOW;
     }
 
     public Integer getTicketId() {
@@ -76,6 +79,7 @@ public class Ticket {
         this.clientId = clientId;
     }
 
+
 //    @Override
 //    public String toString() {
 //        return "Ticket{" +
@@ -86,4 +90,5 @@ public class Ticket {
 //                ", clientId=" + clientId +
 //                '}';
 //    }
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 public class Admin extends Technician{
 
     @Column(name="role" , updatable = false, insertable = false)
+
     private String type;
 
     public Admin(String uname, String password){
