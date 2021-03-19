@@ -22,6 +22,12 @@ public class Ticket {
     @ColumnDefault("LOW")
     private Priority priority;
 
+    @Column(name = "date_submitted")
+    private Long epochStart;
+
+    @Column(name = "date_completed")
+    private Long epochEnd;
+
     @OneToMany(mappedBy = "ticketId", cascade = CascadeType.ALL)
     List<Comment> comments;
 
@@ -61,13 +67,21 @@ public class Ticket {
         this.priority = priority;
     }
 
-//    public List<Integer> getTechnicians() {
-//        return technicians;
-//    }
-//
-//    public void setTechnicians(List<Integer> technicians) {
-//        this.technicians = technicians;
-//    }
+    public Long getEpochStart() {
+        return epochStart;
+    }
+
+    public void setEpochStart(Long epochStart) {
+        this.epochStart = epochStart;
+    }
+
+    public Long getEpochEnd() {
+        return epochEnd;
+    }
+
+    public void setEpochEnd(Long epochEnd) {
+        this.epochEnd = epochEnd;
+    }
 
     public Integer getClientId() {
         return clientId;
@@ -78,15 +92,5 @@ public class Ticket {
     }
 
 
-//    @Override
-//    public String toString() {
-//        return "Ticket{" +
-//                "ticketId=" + ticketId +
-//                ", description='" + description + '\'' +
-//                ", priority=" + priority +
-//                ", technicians=" + technicians +
-//                ", clientId=" + clientId +
-//                '}';
-//    }
 
 }
