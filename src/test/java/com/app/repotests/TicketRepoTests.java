@@ -1,4 +1,4 @@
-package com.app;
+package com.app.repotests;
 
 import com.entities.Priority;
 import com.entities.Ticket;

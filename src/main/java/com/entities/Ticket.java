@@ -22,10 +22,8 @@ public class Ticket {
     @ColumnDefault("LOW")
     private Priority priority;
 
-
-    //Todo many-to-many annotation
-
-//    private List<Integer> technicians;
+    @OneToMany(mappedBy = "ticketId", cascade = CascadeType.ALL)
+    List<Comment> comments;
 
     @Column(name="c_id")
     private Integer clientId;
