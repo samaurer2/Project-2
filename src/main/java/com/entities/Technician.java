@@ -4,7 +4,7 @@ package com.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="technician")
+@Table(name="tech")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "TECH")
@@ -12,7 +12,7 @@ public class Technician {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "tech_id")
     private Integer techId;
 
     @Column(name = "display_name")

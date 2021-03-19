@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Component
 @Repository
 public interface TechnicianRepo extends CrudRepository<Technician, Integer> {
+    Technician findTechnicianByUserName(String uname);
 }

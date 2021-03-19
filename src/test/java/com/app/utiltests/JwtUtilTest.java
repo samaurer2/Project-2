@@ -11,8 +11,15 @@ public class JwtUtilTest {
 
 
     @Test
-    void creates_jwt(){
+    void creates_jwt_client(){
         String jwt = JwtUtil.generateJwtForClient("client", "password");
+        System.out.println(jwt);
+        Assertions.assertNotNull(jwt);
+    }
+
+    @Test
+    void creates_jwt_tech(){
+        String jwt = JwtUtil.generateJwtForTech("admin", "password");
         System.out.println(jwt);
         Assertions.assertNotNull(jwt);
     }
