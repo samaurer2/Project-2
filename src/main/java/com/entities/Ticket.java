@@ -60,13 +60,13 @@ public class Ticket {
         this.priority = priority;
     }
 
-    public List<Integer> getTechnicians() {
-        return technicians;
-    }
-
-    public void setTechnicians(List<Integer> technicians) {
-        this.technicians = technicians;
-    }
+//    public List<Integer> getTechnicians() {
+//        return technicians;
+//    }
+//
+//    public void setTechnicians(List<Integer> technicians) {
+//        this.technicians = technicians;
+//    }
 
     public Integer getClientId() {
         return clientId;
@@ -76,14 +76,14 @@ public class Ticket {
         this.clientId = clientId;
     }
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "ticketId=" + ticketId +
-                ", description='" + description + '\'' +
-                ", priority=" + priority +
-                ", technicians=" + technicians +
-                ", clientId=" + clientId +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Ticket{" +
+//                "ticketId=" + ticketId +
+//                ", description='" + description + '\'' +
+//                ", priority=" + priority +
+//                ", technicians=" + technicians +
+//                ", clientId=" + clientId +
+//                '}';
+//    }
 }
