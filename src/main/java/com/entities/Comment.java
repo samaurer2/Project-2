@@ -19,7 +19,7 @@ public class Comment {
     @Column(name = "comment", nullable = false, updatable = false)
     private String comment;
 
-    @Column(name = "dateSubmitted")
+    @Column(name = "date_submitted")
     private Long epochTime;
 
     @Column(name = "ticket_id")
