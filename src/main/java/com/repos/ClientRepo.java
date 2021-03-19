@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Component
 @Repository
 public interface ClientRepo extends CrudRepository<Client, Integer> {
+    Client findClientByUserName(String uname);
 }

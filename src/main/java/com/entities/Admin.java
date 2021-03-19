@@ -8,12 +8,17 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "ADMIN")
 public class Admin extends Technician{
 
-    @Column(name="role", insertable = false, updatable = false)
+    @Column(name="role" , updatable = false, insertable = false)
+
     private String type;
 
     public Admin(String uname, String password){
         super(uname, password);
         this.type="ADMIN";
+    }
+
+    public Admin() {
+
     }
 
     @Override

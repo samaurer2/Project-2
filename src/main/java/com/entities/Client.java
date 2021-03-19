@@ -3,6 +3,7 @@ package com.entities;
 import javax.persistence.*;
 import java.util.List;
 
+//comments
 @Entity
 @Table(name = "client")
 public class Client {

@@ -17,12 +17,14 @@ public class Ticket {
     @Column(name="description", nullable = false)
     private String description;
 
-    @Column(name="Priority")
+    @Column(name="priority")
     @Enumerated(value = EnumType.STRING)
     @ColumnDefault("LOW")
     private Priority priority;
 
-//    //Todo many-to-many annotation
+
+    //Todo many-to-many annotation
+
 //    private List<Integer> technicians;
 
     @Column(name="c_id")
@@ -77,14 +79,16 @@ public class Ticket {
         this.clientId = clientId;
     }
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "ticketId=" + ticketId +
-                ", description='" + description + '\'' +
-                ", priority=" + priority +
+
+//    @Override
+//    public String toString() {
+//        return "Ticket{" +
+//                "ticketId=" + ticketId +
+//                ", description='" + description + '\'' +
+//                ", priority=" + priority +
 //                ", technicians=" + technicians +
-                ", clientId=" + clientId +
-                '}';
-    }
+//                ", clientId=" + clientId +
+//                '}';
+//    }
+
 }
