@@ -23,7 +23,7 @@ public class TicketRepoTests {
 
     @Test
     void createTicketTest(){
-        Ticket ticket = new Ticket("A new problem has arrived!", 2);
+        Ticket ticket = new Ticket("A new problem has arrived!", 1);
         ticket = ticketRepo.save(ticket);
         System.out.println(ticket);
         Assertions.assertNotNull(ticket.getTicketId());
