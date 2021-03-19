@@ -14,6 +14,7 @@ public class JwtUtilTest {
     void creates_jwt(){
         String jwt = JwtUtil.generateJwtForClient("client", "password");
         System.out.println(jwt);
+        Assertions.assertNotNull(jwt);
     }
 
     @Test

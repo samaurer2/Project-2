@@ -29,12 +29,16 @@ public class JwtUtil {
     public static String generateJwtForClient(String uName, String pPass){
 
         if(PasswordCheckingUtil.checkPass(pPass, cserv.getClient(uName).getPassword())){
-            String token = JWT.create()
+//            String token = JWT.create()
+//                    .withClaim("userName", uName)
+//                    .withClaim("role", "client")
+//                    .withClaim("id", cserv.getClient(uName).getId())
+//                    .sign(algorithm);
+            return JWT.create()
                     .withClaim("userName", uName)
                     .withClaim("role", "client")
                     .withClaim("id", cserv.getClient(uName).getId())
                     .sign(algorithm);
-            return token;
         }else{
             return null;
         }
@@ -43,9 +47,7 @@ public class JwtUtil {
 
 
     public static DecodedJWT isValidJWT(String token){
-        //DecodedJWT jwt = JWT.require(algorithm).build().verify(token);
-        DecodedJWT jwt = JWT.require(algorithm).build().verify(token);
-        return jwt;
+        return JWT.require(algorithm).build().verify(token);
     }
 
 

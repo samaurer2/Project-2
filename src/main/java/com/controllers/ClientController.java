@@ -28,7 +28,7 @@ public class ClientController {
         String jwt = JwtUtil.generateJwtForClient(client.getUserName(), client.getPassword());
         System.out.println(jwt);
         if(jwt != null){
-            logger.info(client.getUserName() + " has logged on.");
+            logger.info(client.getDisplayName() + " has logged on.");
             return jwt;
         }else{
             System.out.println(client);
