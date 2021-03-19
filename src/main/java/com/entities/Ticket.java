@@ -22,10 +22,10 @@ public class Ticket {
     @ColumnDefault("LOW")
     private Priority priority;
 
-    //Todo many-to-many annotation
-    private List<Integer> technicians;
+//    //Todo many-to-many annotation
+//    private List<Integer> technicians;
 
-    @Column(name="c_id", nullable = false)
+    @Column(name="c_id")
     private Integer clientId;
 
     public Ticket() {
@@ -34,6 +34,7 @@ public class Ticket {
     public Ticket(String description, Integer clientId) {
         this.description = description;
         this.clientId = clientId;
+        this.priority = Priority.LOW;
     }
 
     public Integer getTicketId() {
@@ -60,13 +61,13 @@ public class Ticket {
         this.priority = priority;
     }
 
-    public List<Integer> getTechnicians() {
-        return technicians;
-    }
-
-    public void setTechnicians(List<Integer> technicians) {
-        this.technicians = technicians;
-    }
+//    public List<Integer> getTechnicians() {
+//        return technicians;
+//    }
+//
+//    public void setTechnicians(List<Integer> technicians) {
+//        this.technicians = technicians;
+//    }
 
     public Integer getClientId() {
         return clientId;
@@ -82,7 +83,7 @@ public class Ticket {
                 "ticketId=" + ticketId +
                 ", description='" + description + '\'' +
                 ", priority=" + priority +
-                ", technicians=" + technicians +
+//                ", technicians=" + technicians +
                 ", clientId=" + clientId +
                 '}';
     }
