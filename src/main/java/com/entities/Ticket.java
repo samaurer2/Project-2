@@ -43,6 +43,12 @@ public class Ticket {
         this.priority = Priority.LOW;
     }
 
+    public Ticket(Integer ticketId, String description, Integer clientId) {
+        this.ticketId = ticketId;
+        this.description = description;
+        this.clientId = clientId;
+    }
+
     public Integer getTicketId() {
         return ticketId;
     }

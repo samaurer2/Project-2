@@ -1,6 +1,7 @@
 package com.services;
 
 import com.entities.Admin;
+import com.entities.TechTicket;
 import com.entities.Technician;
 import com.entities.Ticket;
 import com.repos.TechTicketRepo;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Service
@@ -28,18 +31,25 @@ public class TechnicianServiceImpl  implements TechnicianService{
 
     public TechnicianServiceImpl(){}
 
-    public TechnicianServiceImpl(TechnicianRepo technicianRepo){
+    public TechnicianServiceImpl(TechnicianRepo technicianRepo, TicketRepo ticketRepo, TechTicketRepo techTicketRepo) {
         this.technicianRepo = technicianRepo;
+        this.ticketRepo = ticketRepo;
+        this.techTicketRepo = techTicketRepo;
     }
 
     @Override
     public Technician getTechnicianById(int techId) {
-        return null;
+        Technician technician = null;
+        Optional op = technicianRepo.findById(techId);
+        if(op.isPresent())
+            technician = (Technician) op.get();
+        return technician;
     }
 
     @Override
     public List<Technician> getAllTechnicians() {
-        return null;
+        List<Technician> technicians = (List<Technician>) technicianRepo.findAll();
+        return technicians;
     }
 
     @Override
@@ -49,12 +59,21 @@ public class TechnicianServiceImpl  implements TechnicianService{
 
     @Override
     public List<Ticket> getAllTicketsOfTech(int techId){
-        return null;
+        List<TechTicket> techTickets = techTicketRepo.findAllByTechId(techId);
+        List<Ticket> tickets = new ArrayList<>();
+        for(TechTicket tt: techTickets){
+            Ticket ticket = ticketRepo.findById(tt.getPk().getTicketId()).get();
+            tickets.add(ticket);
+        }
+
+        return tickets;
     }
 
     @Override
     public List<Ticket> getAllTicketsOfTech(String uname){
-        return null;
+        Technician technician = technicianRepo.findTechnicianByUserName(uname);
+
+        return getAllTicketsOfTech(technician.getId());
     }
 
     @Override
