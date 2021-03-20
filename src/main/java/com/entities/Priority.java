@@ -1,4 +1,4 @@
 package com.entities;
 
-public enum Priority { LOW,MEDIUM,HIGH
+public enum Priority { CLOSED,LOW,MEDIUM,HIGH
 }
