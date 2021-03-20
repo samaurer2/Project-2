@@ -1,14 +1,17 @@
 package com.services;
 
 import com.entities.Technician;
+import com.repos.TechTicketRepo;
 import com.repos.TechnicianRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Component
 @Service
-public class TechnicianServiceImpl implements TechnicianService{
+public class TechnicianServiceImpl  implements TechnicianService{
 
     @Autowired
     TechnicianRepo technicianRepo;
