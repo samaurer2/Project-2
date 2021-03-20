@@ -2,6 +2,8 @@ package com.services;
 
 import com.entities.Technician;
 
+import java.util.List;
+
 public interface TechnicianService {
 
     //READ
