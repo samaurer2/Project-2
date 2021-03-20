@@ -15,10 +15,18 @@ public class TechnicianServiceImpl  implements TechnicianService{
 
     @Autowired
     TechnicianRepo technicianRepo;
-
     public TechnicianServiceImpl(){}
     public TechnicianServiceImpl(TechnicianRepo technicianRepo){
         this.technicianRepo = technicianRepo;
+    }
+    @Override
+    public Technician getTechnicianById(int techId) {
+        return null;
+    }
+
+    @Override
+    public List<Technician> getAllTechnicians() {
+        return null;
     }
     @Override
     public Technician getTech(String uname) {
