@@ -47,6 +47,7 @@ public class Ticket {
         this.ticketId = ticketId;
         this.description = description;
         this.clientId = clientId;
+        this.priority = Priority.LOW;
     }
 
     public Integer getTicketId() {

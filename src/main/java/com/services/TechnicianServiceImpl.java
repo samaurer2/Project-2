@@ -1,9 +1,7 @@
 package com.services;
 
-import com.entities.Admin;
-import com.entities.TechTicket;
-import com.entities.Technician;
-import com.entities.Ticket;
+
+import com.entities.*;
 import com.repos.TechTicketRepo;
 import com.repos.TechnicianRepo;
 import com.repos.TicketRepo;
@@ -36,6 +34,11 @@ public class TechnicianServiceImpl  implements TechnicianService{
         this.ticketRepo = ticketRepo;
         this.techTicketRepo = techTicketRepo;
     }
+
+    public TechnicianServiceImpl(TicketRepo ticketRepo){
+        this.ticketRepo = ticketRepo;
+    }
+
 
     @Override
     public Technician getTechnicianById(int techId) {
@@ -77,23 +80,64 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public Ticket AssignTicketToSelf(Technician technician, Ticket ticket){
-        return null;
+    public TechTicket AssignTicketToSelf(Technician technician, Ticket ticket) {
+        Optional op = ticketRepo.findById(ticket.getTicketId());
+        if (op.isPresent()) {
+            ticket = (Ticket) op.get();
+            TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
+            techTicketRepo.save(techTicket);
+            return techTicket;
+        }else{
+            return null;
+        }
     }
 
-
     @Override
-    public Ticket AssignTicketToOther(Admin admin, Technician technician, Ticket ticket){
-        return ticket;
+    public TechTicket AssignTicketToOther(Admin admin, Technician technician, Ticket ticket){
+        Optional op = ticketRepo.findById(ticket.getTicketId());
+        if(op.isPresent()){
+            ticket = (Ticket) op.get();
+            TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
+            return techTicket;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public Ticket escalateTicketStatus(Ticket ticket){
-        return null;
+        Optional op = ticketRepo.findById(ticket.getTicketId());
+        if (op.isPresent()){
+            ticket = (Ticket) op.get();
+            if(ticket.getPriority() != Priority.CLOSED || ticket.getPriority() != Priority.HIGH){
+                ticket.setPriority(Priority.values()[ticket.getPriority().ordinal() + 1]);
+                return ticket;
+
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
 
     @Override
-    public Ticket closeTicket(Technician technician) {
-        return null;
+    public Ticket closeTicket(Ticket ticket) {
+
+        Optional op = ticketRepo.findById(ticket.getTicketId());
+        if (op.isPresent()){
+            ticket = (Ticket) op.get();
+            if(ticket.getPriority() != Priority.CLOSED){
+                ticket.setPriority(Priority.CLOSED);
+                ticket.setEpochEnd(System.currentTimeMillis());
+                return ticket;
+
+        }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
+
     }
 }

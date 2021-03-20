@@ -8,6 +8,7 @@ import com.services.TechnicianService;
 import com.services.TechnicianServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -28,6 +29,7 @@ import static org.mockito.ArgumentMatchers.any;
 public class TechnicianServiceTest {
 
     static TechnicianService technicianService;
+
 
     @Mock
     static TechnicianRepo technicianRepo = Mockito.mock(TechnicianRepo.class);
@@ -89,6 +91,7 @@ public class TechnicianServiceTest {
         Mockito.when(technicianRepo.findAll()).thenReturn(testTechList);
         Mockito.when(techTicketRepo.findAllByTechId(1)).thenReturn(testTechTicketList);
         Mockito.when(ticketRepo.findById(any())).thenReturn(Optional.of(new Ticket((abs((random.nextInt()%8)+1)),"Dummy Data",1)));
+        Mockito.when(ticketRepo.findById(1)).thenReturn(Optional.of(new Ticket(1, "test", 1)));
         Mockito.when(technicianRepo.findTechnicianByUserName("Mr. Admin")).thenReturn(testAdmin);
         Mockito.when(technicianRepo.findTechnicianByUserName("Mr Tech")).thenReturn(testTechnician);
         Mockito.when(technicianRepo.findById(1)).thenReturn(Optional.of(testAdmin));
@@ -96,7 +99,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void get_client(){
+    public void get_tech(){
 
         Technician technician = this.technicianService.getTech("Mr. Admin");
         Assertions.assertEquals("Mr. Admin", technician.getUserName());
@@ -104,6 +107,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
+
     public void getTechById(){
         Technician technician = technicianService.getTechnicianById(1);
         Assertions.assertEquals(1, technician.getId());
@@ -130,16 +134,51 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    void getAllTicketsofTechName(){
+    void getAllTicketsofTechName() {
         List<Ticket> tickets = technicianService.getAllTicketsOfTech(testAdmin.getUserName());
         List<Integer> ticketIds = new ArrayList<>();
-        for(TechTicket tt:testTechTicketList) {
-            if(tt.getPk().getTechId() == testAdmin.getId()){
+        for (TechTicket tt : testTechTicketList) {
+            if (tt.getPk().getTechId() == testAdmin.getId()) {
                 ticketIds.add(tt.getPk().getTicketId());
             }
         }
-        for (Ticket t:tickets) {
+        for (Ticket t : tickets) {
             Assertions.assertTrue(ticketIds.contains(t.getTicketId()));
         }
+    }
+
+    @Test
+    public void close_ticket(){
+
+        Ticket ticket = new Ticket("asdf", 1);
+        ticket = technicianService.closeTicket(ticket);
+        Assertions.assertEquals(Priority.CLOSED, ticket.getPriority());
+        Assertions.assertNotNull(ticket.getEpochEnd());
+    }
+    @Test
+    public void escalate_ticket(){
+
+        Ticket ticket = new Ticket("asdf", 1);
+        ticket.setTicketId(1);
+        ticket = technicianService.escalateTicketStatus(ticket);
+        Assertions.assertEquals(Priority.MEDIUM, ticket.getPriority());
+    }
+    @Test
+    public void assign_to_self_test(){
+        Ticket ticket = new Ticket("asdf", 1);
+        ticket.setTicketId(1);
+        TechTicket techTicket = technicianService.AssignTicketToSelf(testTechnician, ticket);
+
+        Assertions.assertEquals(1, techTicket.getPk().getTicketId());
+        Assertions.assertEquals(2, techTicket.getPk().getTechId());
+    }
+
+    @Test
+    public void assign_to_other(){
+        Ticket ticket = new Ticket("asdf", 1);
+        ticket.setTicketId(1);
+        TechTicket techTicket = technicianService.AssignTicketToOther((Admin)testAdmin, testTechnician, ticket);
+        Assertions.assertEquals(1, techTicket.getPk().getTicketId());
+        Assertions.assertEquals(2, techTicket.getPk().getTechId());
     }
 }
