@@ -3,6 +3,7 @@ package com.controllers;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.Admin;
+import com.entities.TechTicket;
 import com.entities.Technician;
 import com.entities.Ticket;
 import com.services.TechnicianService;
@@ -10,9 +11,7 @@ import com.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -42,32 +41,39 @@ public class TechnicianController {
             return null;
         }
     }
-    public Technician getTechnician(Technician technician){
-        return null;
+
+    @GetMapping("/tech")
+    @ResponseBody
+    public List<Technician> getAllTechnicians() {
+        return technicianService.getAllTechnicians();
     }
-    public  List<Technician> getAllTechnicians(){
-        return null;
+
+    @GetMapping("/tech/{id}")
+    @ResponseBody
+    public Technician getTechnician(@PathVariable int id) {
+        return technicianService.getTechnicianById(id);
     }
-    public List<Ticket> getAllTechsOfTicket(int ticketId){
+
+    @GetMapping("/tech/ticket{techId}")
+    @ResponseBody
+    public List<Ticket> getAllTicketsOfTech(int techId) {
         return null;
     }
 
-    public List<Ticket> getAllTicketsOfTech(Technician technician){
-        return null;
-    }
-    public Ticket assignTicketToSelf(Technician technician, Ticket ticket) {
-        return null;
-    }
-
-    public Ticket assignTicketToOther(Admin admin, Technician technician, Ticket ticket) {
+    @PostMapping("/tech/ticket")
+    public Ticket assignTicketToSelf(@RequestBody TechTicket techTicket) {
         return null;
     }
 
-    public Ticket modifyTicketStatus(Ticket ticket) {
+//    public Ticket assignTicketToOther(Admin admin, Technician technician, Ticket ticket) {
+//        return null;
+//    }
+
+    @PutMapping("/tech/ticket")
+    @ResponseBody
+    public Ticket modifyTicketStatus(@RequestBody Ticket ticket) {
         return null;
     }
-
-
 
 
 }
