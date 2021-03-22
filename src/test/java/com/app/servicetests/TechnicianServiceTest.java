@@ -167,7 +167,7 @@ public class TechnicianServiceTest {
     public void assign_to_self_test(){
         Ticket ticket = new Ticket("asdf", 1);
         ticket.setTicketId(1);
-        TechTicket techTicket = technicianService.AssignTicketToSelf(testTechnician, ticket);
+        TechTicket techTicket = technicianService.AssignTicketToSelf(testTechnician, ticket.getTicketId());
 
         Assertions.assertEquals(1, techTicket.getPk().getTicketId());
         Assertions.assertEquals(2, techTicket.getPk().getTechId());
@@ -177,7 +177,7 @@ public class TechnicianServiceTest {
     public void assign_to_other(){
         Ticket ticket = new Ticket("asdf", 1);
         ticket.setTicketId(1);
-        TechTicket techTicket = technicianService.AssignTicketToOther((Admin)testAdmin, testTechnician, ticket);
+        TechTicket techTicket = technicianService.AssignTicketToOther((Admin)testAdmin, testTechnician.getId(), ticket.getTicketId());
         Assertions.assertEquals(1, techTicket.getPk().getTicketId());
         Assertions.assertEquals(2, techTicket.getPk().getTechId());
     }
