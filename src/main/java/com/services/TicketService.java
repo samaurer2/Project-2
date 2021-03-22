@@ -8,11 +8,11 @@ import java.util.List;
 public interface TicketService {
 
 
-   public Ticket getTicketById(int id) throws TicketNotFoundException;
-   public Ticket createTicket(Ticket ticket);
-   public List<Ticket> getAllTicket();
-   public List<Ticket> getAllTicketsByClientId(int clientId);
-   public Ticket updateTicket(Ticket ticket) throws TicketNotFoundException;
+   Ticket getTicketById(int id) throws TicketNotFoundException;
+   Ticket createTicket(Ticket ticket);
+   List<Ticket> getAllTicket();
+   List<Ticket> getAllTicketsByClientId(int clientId);
+   Ticket updateTicket(Ticket ticket) throws TicketNotFoundException;
 
 
 

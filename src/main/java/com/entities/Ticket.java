@@ -22,10 +22,14 @@ public class Ticket {
     @ColumnDefault("LOW")
     private Priority priority;
 
+    @Column(name = "date_submitted")
+    private Long epochStart;
 
-    //Todo many-to-many annotation
+    @Column(name = "date_completed")
+    private Long epochEnd;
 
-//    private List<Integer> technicians;
+    @OneToMany(mappedBy = "ticketId", cascade = CascadeType.ALL)
+    List<Comment> comments;
 
     @Column(name="c_id")
     private Integer clientId;
@@ -34,6 +38,13 @@ public class Ticket {
     }
 
     public Ticket(String description, Integer clientId) {
+        this.description = description;
+        this.clientId = clientId;
+        this.priority = Priority.LOW;
+    }
+
+    public Ticket(Integer ticketId, String description, Integer clientId) {
+        this.ticketId = ticketId;
         this.description = description;
         this.clientId = clientId;
         this.priority = Priority.LOW;
@@ -63,13 +74,21 @@ public class Ticket {
         this.priority = priority;
     }
 
-//    public List<Integer> getTechnicians() {
-//        return technicians;
-//    }
-//
-//    public void setTechnicians(List<Integer> technicians) {
-//        this.technicians = technicians;
-//    }
+    public Long getEpochStart() {
+        return epochStart;
+    }
+
+    public void setEpochStart(Long epochStart) {
+        this.epochStart = epochStart;
+    }
+
+    public Long getEpochEnd() {
+        return epochEnd;
+    }
+
+    public void setEpochEnd(Long epochEnd) {
+        this.epochEnd = epochEnd;
+    }
 
     public Integer getClientId() {
         return clientId;
@@ -80,15 +99,5 @@ public class Ticket {
     }
 
 
-//    @Override
-//    public String toString() {
-//        return "Ticket{" +
-//                "ticketId=" + ticketId +
-//                ", description='" + description + '\'' +
-//                ", priority=" + priority +
-//                ", technicians=" + technicians +
-//                ", clientId=" + clientId +
-//                '}';
-//    }
 
 }
