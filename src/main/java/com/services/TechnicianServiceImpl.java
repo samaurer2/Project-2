@@ -80,10 +80,10 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public TechTicket AssignTicketToSelf(Technician technician, Ticket ticket) {
-        Optional op = ticketRepo.findById(ticket.getTicketId());
+    public TechTicket AssignTicketToSelf(Technician technician, int ticketId) {
+        Optional op = ticketRepo.findById(ticketId);
         if (op.isPresent()) {
-            ticket = (Ticket) op.get();
+            Ticket ticket = (Ticket) op.get();
             TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
             techTicketRepo.save(techTicket);
             return techTicket;
@@ -93,12 +93,12 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public TechTicket AssignTicketToOther(Admin admin, Technician technician, Ticket ticket){
-        Optional op = ticketRepo.findById(ticket.getTicketId());
+    public TechTicket AssignTicketToOther(Admin admin, int techId, int ticketId){
+        Optional op = ticketRepo.findById(ticketId);
         if(op.isPresent()){
-            ticket = (Ticket) op.get();
-            TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
-            return techTicket;
+            Ticket ticket = (Ticket) op.get();
+            Technician technician = technicianRepo.findById(techId).get();
+            return new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
         }else{
             return null;
         }
