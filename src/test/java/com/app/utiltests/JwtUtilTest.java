@@ -18,7 +18,7 @@ public class JwtUtilTest {
             jwt = JwtUtil.generateJwtForClient("client", "password");
             System.out.println(jwt);
             Assertions.assertNotNull(jwt);
-        } catch (UserNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

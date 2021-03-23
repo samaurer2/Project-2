@@ -4,6 +4,8 @@ import com.entities.Ticket;
 import com.exceptions.TicketNotFoundException;
 import com.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Component
 @Controller
+@CrossOrigin
 public class TicketController {
 
     @Autowired
@@ -37,8 +40,8 @@ public class TicketController {
 
     @GetMapping("/tickets/client/{clientId}")
     @ResponseBody
-    public List<Ticket> getTicketsByClientId(@PathVariable int clientId) {
-        return ticketService.getAllTicketsByClientId(clientId);
+    public ResponseEntity<Object> getTicketsByClientId(@PathVariable int clientId) {
+        return new ResponseEntity<>(ticketService.getAllTicketsByClientId(clientId), HttpStatus.OK);
     }
 
     @PostMapping("/tickets")

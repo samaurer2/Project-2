@@ -3,6 +3,7 @@ package com.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.entities.Client;
 import com.entities.Technician;
 import com.exceptions.LoginException;
 import com.exceptions.UserNotFoundException;
@@ -35,8 +36,11 @@ public class JwtUtil {
         tserv = this.technicianService;
     }
 
-    public static String generateJwtForClient(String uName, String pPass) throws UserNotFoundException {
-
+    public static String generateJwtForClient(String uName, String pPass) throws UserNotFoundException, LoginException {
+        Client client = cserv.getClient(uName);
+        if(client == null){
+            throw new UserNotFoundException("Client not found.");
+        }
         if(PasswordCheckingUtil.checkPass(pPass, cserv.getClient(uName).getPassword())){
 
             return JWT.create()
@@ -45,7 +49,7 @@ public class JwtUtil {
                     .withClaim("id", cserv.getClient(uName).getId())
                     .sign(algorithm);
         }else{
-            throw new UserNotFoundException("Client not found.");
+            throw new LoginException();
         }
 
     }

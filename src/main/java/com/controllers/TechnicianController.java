@@ -23,6 +23,7 @@ import java.util.List;
 
 @Component
 @Controller
+@CrossOrigin
 public class TechnicianController {
 
     private Logger logger = LogManager.getLogger(TechnicianController.class);
