@@ -3,6 +3,9 @@ package com.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.entities.Technician;
+import com.exceptions.LoginException;
+import com.exceptions.UserNotFoundException;
 import com.services.ClientService;
 import com.services.TechnicianService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +35,7 @@ public class JwtUtil {
         tserv = this.technicianService;
     }
 
-    public static String generateJwtForClient(String uName, String pPass){
+    public static String generateJwtForClient(String uName, String pPass) throws UserNotFoundException {
 
         if(PasswordCheckingUtil.checkPass(pPass, cserv.getClient(uName).getPassword())){
 
@@ -42,13 +45,16 @@ public class JwtUtil {
                     .withClaim("id", cserv.getClient(uName).getId())
                     .sign(algorithm);
         }else{
-            return null;
+            throw new UserNotFoundException("Client not found.");
         }
 
     }
 
-    public static String generateJwtForTech(String uName, String pPass){
-
+    public static String generateJwtForTech(String uName, String pPass) throws UserNotFoundException, LoginException {
+        Technician technician = tserv.getTech(uName);
+        if(technician == null){
+            throw new UserNotFoundException("Technician not found.");
+        }
         if(PasswordCheckingUtil.checkPass(pPass, tserv.getTech(uName).getPassword())){
 
             return JWT.create()
@@ -57,7 +63,7 @@ public class JwtUtil {
                     .withClaim("id", tserv.getTech(uName).getId())
                     .sign(algorithm);
         }else{
-            return null;
+            throw new LoginException();
         }
 
     }

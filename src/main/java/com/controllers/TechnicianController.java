@@ -3,47 +3,67 @@ package com.controllers;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.*;
+import com.exceptions.LoginException;
+import com.exceptions.UserNotFoundException;
 import com.services.TechnicianService;
 import com.util.JwtUtil;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Component
 @Controller
 public class TechnicianController {
 
-    private Logger logger = Logger.getLogger("Tech Login");
+    private Logger logger = LogManager.getLogger(TechnicianController.class);
 
     @Autowired
     TechnicianService technicianService;
 
     @PostMapping("/tech/login")
     @ResponseBody
-    public String techLogin(@RequestBody Technician technician) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    //@ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> techLogin(@RequestBody Technician technician){
 
-        String jwt = JwtUtil.generateJwtForTech(technician.getUserName(), technician.getPassword());
-        DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-        System.out.println(decodedJWT);
-        String username = decodedJWT.getClaim("userName").asString();
-        if (username != null) {
+        String jwt = null;
+        try {
+            jwt = JwtUtil.generateJwtForTech(technician.getUserName(), technician.getPassword());
+            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+            System.out.println(decodedJWT);
+            String username = decodedJWT.getClaim("userName").asString();
+
             logger.info(username + " has logged on.");
-            return jwt;
-        } else {
-            System.out.println(technician);
-            return null;
+            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(jwt, HttpStatus.OK);
+            return responseEntity;
+
+        } catch (UserNotFoundException e) {
+            logger.warn(e.getMessage());
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            return responseEntity;
+
+        } catch (LoginException e) {
+            logger.warn(e.getMessage());
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.BANDWIDTH_LIMIT_EXCEEDED);
+            return responseEntity;
+
         }
+
     }
 
     @GetMapping("/tech")
     @ResponseBody
-    public List<Technician> getTechnician(@RequestParam(value = "id", required = false) Integer id, @RequestParam(value = "name", required = false) String name) {
+    public ResponseEntity<Object> getTechnician(@RequestParam(value = "id", required = false) Integer id, @RequestParam(value = "name", required = false) String name) {
         List<Technician> technicians = new ArrayList<>();
         if(id != null && name != null) {
             Technician tech = technicianService.getTech(name);
@@ -60,7 +80,8 @@ public class TechnicianController {
         else if((name == null) && (id == null))
             technicians = technicianService.getAllTechnicians();
 
-        return technicians;
+        ResponseEntity<Object> responseEntity = new ResponseEntity<>(technicians, HttpStatus.ACCEPTED);
+        return responseEntity;
     }
 
     @GetMapping("/tech/ticket")
@@ -87,6 +108,7 @@ public class TechnicianController {
         if (techTicket.getTechId().equals(id)) {
 
             Technician technician = technicianService.getTechnicianById(id);
+            logger.info("");
             return technicianService.AssignTicketToSelf(technician, techTicket.getTicketId());
 
         } else if (!techTicket.getTechId().equals(id) && decodedJWT.getClaim("role").asString().equals("ADMIN")) {
