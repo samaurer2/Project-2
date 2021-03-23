@@ -49,6 +49,7 @@ public class TicketServiceImpl implements TicketService {
             return null;
         if (ticket.getDescription() == null)
             return null;
+        ticket.setEpochStart(System.currentTimeMillis());
         ticket = ticketRepo.save(ticket);
         return ticket;
     }
