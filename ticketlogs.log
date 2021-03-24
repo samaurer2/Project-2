@@ -1,0 +1,30 @@
+2021-03-23 17:35:30 INFO  TechnicianController:47 - technician has logged on.
+2021-03-23 17:38:18 WARN  ClientController:52 - Technician not found.
+2021-03-23 17:38:37 WARN  ClientController:52 - Technician not found.
+2021-03-23 17:43:24 WARN  ClientController:52 - Technician not found.
+2021-03-23 17:43:38 WARN  ClientController:52 - Technician not found.
+2021-03-23 17:44:38 INFO  ClientController:47 - client has logged on.
+2021-03-23 17:46:45 INFO  ClientController:47 - client has logged on.
+2021-03-23 17:47:57 INFO  ClientController:47 - client has logged on.
+2021-03-23 17:51:28 INFO  ClientController:47 - client has logged on.
+2021-03-24 15:02:21 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 15:02:43 WARN  TechnicianController:50 - Technician not found.
+2021-03-24 15:02:55 WARN  TechnicianController:50 - Technician not found.
+2021-03-24 15:04:07 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 15:21:08 INFO  ClientController:47 - client has logged on.
+2021-03-24 15:21:36 WARN  ClientController:52 - Client not found.
+2021-03-24 15:21:44 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 15:22:14 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 15:22:50 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 15:54:56 INFO  ClientController:47 - client has logged on.
+2021-03-24 15:54:57 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 15:54:57 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 15:55:41 INFO  ClientController:47 - client has logged on.
+2021-03-24 15:55:42 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 15:55:42 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 15:57:43 INFO  ClientController:47 - client has logged on.
+2021-03-24 15:57:43 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 15:57:43 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 16:00:03 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 16:01:25 INFO  TechnicianController:151 - Ticket not found
+2021-03-24 16:02:58 INFO  TechnicianController:151 - Ticket not found
