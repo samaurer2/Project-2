@@ -40,3 +40,12 @@
 2021-03-24 16:42:46 INFO  TechnicianController:117 - Assigned ticket 26 to technician
 2021-03-24 16:59:37 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
 2021-03-24 17:00:17 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
+2021-03-24 17:24:08 INFO  TechnicianController:117 - Assigned ticket 26 to admin
+2021-03-24 17:24:33 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
+2021-03-24 17:27:55 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
+2021-03-24 17:28:53 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 17:29:22 INFO  TechnicianController:117 - Assigned ticket 26 to technician
+2021-03-24 17:29:46 INFO  TechnicianController:123 - An Admin assigned ticket 228 to admin
+2021-03-24 17:29:53 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
+2021-03-24 17:31:56 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
+2021-03-24 17:32:23 INFO  TechnicianController:117 - Assigned ticket 226 to technician
