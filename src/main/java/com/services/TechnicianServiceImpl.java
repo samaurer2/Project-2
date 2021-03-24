@@ -65,9 +65,12 @@ public class TechnicianServiceImpl  implements TechnicianService{
     public List<Ticket> getAllTicketsOfTech(int techId){
         List<TechTicket> techTickets = techTicketRepo.findAllByTechId(techId);
         List<Ticket> tickets = new ArrayList<>();
+
         for(TechTicket tt: techTickets){
-            Ticket ticket = ticketRepo.findById(tt.getPk().getTicketId()).get();
-            tickets.add(ticket);
+            Optional op = ticketRepo.findById(tt.getPk().getTicketId());
+            if (op.isPresent()){
+                tickets.add((Ticket) op.get());
+            }
         }
 
         return tickets;

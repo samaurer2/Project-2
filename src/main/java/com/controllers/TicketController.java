@@ -56,7 +56,7 @@ public class TicketController {
 
         try{
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-            if (decodedJWT.getClaim("role").equals("client")){
+            if (decodedJWT.getClaim("role").asString().equals("client")){
 
                 ticket.setTicketId(decodedJWT.getClaim("id").asInt());
                 logger.info("Ticket " + ticket.getTicketId() + " has been created by " + decodedJWT.getClaim("userName"));
@@ -80,13 +80,13 @@ public class TicketController {
         try {
 
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-            if (decodedJWT.getClaim("role").equals("TECH")){
+            if (decodedJWT.getClaim("role").asString().equals("TECH")){
 
                 ticket.setTicketId(decodedJWT.getClaim("id").asInt());
                 logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
                 return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
 
-            }else if (decodedJWT.getClaim("role").equals("ADMIN")) {
+            }else if (decodedJWT.getClaim("role").asString().equals("ADMIN")) {
 
                 ticket.setTicketId(decodedJWT.getClaim("id").asInt());
                 logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
