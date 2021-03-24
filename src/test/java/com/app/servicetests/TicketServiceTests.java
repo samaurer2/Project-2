@@ -89,11 +89,15 @@ public class TicketServiceTests {
 
     @Test
     void createTicketServiceTest() {
-        Ticket ticket = new Ticket();
-        ticket.setClientId(1);
-        ticket.setDescription("New Ticket");
-        ticket = ticketService.createTicket(ticket);
-        Assertions.assertNotNull(ticket);
+        try {
+            Ticket ticket = new Ticket();
+            ticket.setClientId(1);
+            ticket.setDescription("New Ticket");
+            ticket = ticketService.createTicket(ticket);
+            Assertions.assertNotNull(ticket);
+        } catch (Exception e) {
+            Assertions.fail();
+        }
     }
 
     @Test

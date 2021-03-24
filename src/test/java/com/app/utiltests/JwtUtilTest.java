@@ -1,6 +1,7 @@
 package com.app.utiltests;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.exceptions.UserNotFoundException;
 import com.util.JwtUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,16 +13,28 @@ public class JwtUtilTest {
 
     @Test
     void creates_jwt_client(){
-        String jwt = JwtUtil.generateJwtForClient("client", "password");
-        System.out.println(jwt);
-        Assertions.assertNotNull(jwt);
+        String jwt = null;
+        try {
+            jwt = JwtUtil.generateJwtForClient("client", "password");
+            System.out.println(jwt);
+            Assertions.assertNotNull(jwt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     void creates_jwt_tech(){
-        String jwt = JwtUtil.generateJwtForTech("admin", "password");
-        System.out.println(jwt);
-        Assertions.assertNotNull(jwt);
+        String jwt = null;
+        try {
+            jwt = JwtUtil.generateJwtForTech("admin", "password");
+            System.out.println(jwt);
+            Assertions.assertNotNull(jwt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Test

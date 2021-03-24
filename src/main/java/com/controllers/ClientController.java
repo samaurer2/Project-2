@@ -1,25 +1,34 @@
 package com.controllers;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.Client;
+import com.exceptions.LoginException;
+import com.exceptions.UserNotFoundException;
 import com.services.ClientService;
 import com.util.JwtUtil;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.logging.Logger;
+
 
 @Component
 @Controller
-
+@CrossOrigin
 public class ClientController {
 
-    private Logger logger = Logger.getLogger("Client Login");
+    private Logger logger = LogManager.getLogger(ClientController.class);
 
     @Autowired
     ClientService clientService;
@@ -27,21 +36,31 @@ public class ClientController {
 
     @PostMapping("/client/login")
     @ResponseBody
-    public String clientLogin(@RequestBody Client client){
+    public ResponseEntity<Object> clientLogin(@RequestBody Client client){
 
-        String jwt = JwtUtil.generateJwtForClient(client.getUserName(), client.getPassword());
-        DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-        System.out.println(decodedJWT);
-        String username = decodedJWT.getClaim("userName").asString();
-        if(username != null){
+        DecodedJWT decodedJWT;
+        try {
+            String jwt = JwtUtil.generateJwtForClient(client.getUserName(), client.getPassword());
+            decodedJWT = JwtUtil.isValidJWT(jwt);
+            String username = decodedJWT.getClaim("userName").asString();
+
             logger.info(username + " has logged on.");
-            return jwt;
-        }else{
-            System.out.println(client);
-            return null;
+            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(jwt, HttpStatus.OK);
+            return responseEntity;
+
+        } catch (UserNotFoundException e) {
+            logger.warn(e.getMessage());
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return responseEntity;
+
+        } catch (LoginException e) {
+            logger.warn(e.getMessage());
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return responseEntity;
+        } catch (JWTVerificationException e) {
+            logger.warn(e.getMessage());
+            return new ResponseEntity<>("User not found.", HttpStatus.NOT_FOUND);
         }
-
-
     }
 
 }
