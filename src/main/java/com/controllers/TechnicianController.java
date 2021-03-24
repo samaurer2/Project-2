@@ -109,16 +109,16 @@ public class TechnicianController {
         if (techTicket.getTechId().equals(id)) {
 
             Technician technician = technicianService.getTechnicianById(id);
-            logger.info("");
+            logger.info("Assigned ticket " + techTicket.getTicketId() + " to " + technician.getDisplayName());
             return technicianService.AssignTicketToSelf(technician, techTicket.getTicketId());
 
         } else if (!techTicket.getTechId().equals(id) && decodedJWT.getClaim("role").asString().equals("ADMIN")) {
 
             Technician technician = technicianService.getTechnicianById(id);
+            logger.info("An Admin assigned ticket " + techTicket.getTicketId() + " to " + technician.getDisplayName());
             return technicianService.AssignTicketToOther((Admin) technician,techTicket.getTechId(), techTicket.getTicketId());
 
         } else {
-            //return 403
             return null;
         }
     }
@@ -132,8 +132,10 @@ public class TechnicianController {
         for(Ticket t: tickets) {
             if(t.getTicketId().equals(ticket.getTicketId())) {
                 if(closed) {
+                    logger.info("Ticket " + ticket.getTicketId() + " has been closed by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
                     return technicianService.closeTicket(ticket);
                 } else {
+                    logger.info("Ticket " + ticket.getTicketId() + " has been escalated by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
                     return technicianService.escalateTicketStatus(ticket);
                 }
             }
