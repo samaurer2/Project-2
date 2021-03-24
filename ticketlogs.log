@@ -28,3 +28,15 @@
 2021-03-24 16:00:03 INFO  TechnicianController:46 - admin has logged on.
 2021-03-24 16:01:25 INFO  TechnicianController:151 - Ticket not found
 2021-03-24 16:02:58 INFO  TechnicianController:151 - Ticket not found
+2021-03-24 16:38:33 INFO  ClientController:47 - client has logged on.
+2021-03-24 16:38:33 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 16:38:34 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 16:38:38 INFO  TechnicianController:154 - Ticket not found
+2021-03-24 16:38:38 INFO  TechnicianController:141 - Ticket 3 has been closed by Admin{type='ADMIN'}
+2021-03-24 16:40:42 INFO  TechnicianController:46 - admin has logged on.
+2021-03-24 16:40:56 INFO  TechnicianController:117 - Assigned ticket 26 to admin
+2021-03-24 16:42:01 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
+2021-03-24 16:42:24 INFO  TechnicianController:46 - technician has logged on.
+2021-03-24 16:42:46 INFO  TechnicianController:117 - Assigned ticket 26 to technician
+2021-03-24 16:59:37 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
+2021-03-24 17:00:17 INFO  TechnicianController:123 - An Admin assigned ticket 26 to admin
