@@ -34,6 +34,11 @@ public class TechTickPK implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+
         TechTickPK pk = (TechTickPK) obj;
         if (pk.techId.equals(this.techId) && pk.ticketId.equals(this.ticketId))
             return true;
