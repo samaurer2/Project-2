@@ -113,15 +113,18 @@ public class TechnicianController {
         TechTicket techTicket = null;
         if (techTickPK.getTechId().equals(id)) {
             Technician technician = technicianService.getTechnicianById(id);
-            techTicket = technicianService.AssignTicketToSelf(technician, techTickPK.getTicketId());
+            logger.info("Assigned ticket " + techTicket.getTicketId() + " to " + technician.getDisplayName());
+            return technicianService.AssignTicketToSelf(technician, techTicket.getTicketId());
 
         } else if (!techTickPK.getTechId().equals(id) && decodedJWT.getClaim("role").asString().equals("ADMIN")) {
 
             Technician technician = technicianService.getTechnicianById(id);
+            logger.info("An Admin assigned ticket " + techTicket.getTicketId() + " to " + technician.getDisplayName());
             techTicket = technicianService.AssignTicketToOther((Admin) technician, techTickPK.getTechId(), techTickPK.getTicketId());
 
         } else {
             return new ResponseEntity<>("Cannot assign ticket", HttpStatus.FORBIDDEN);
+
         }
         return new ResponseEntity<>(techTicket, HttpStatus.CREATED);
     }
@@ -129,18 +132,17 @@ public class TechnicianController {
     @PutMapping("/tech/ticket")
     @ResponseBody
     public ResponseEntity<Object> modifyTicketStatus(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt, @RequestParam(value = "closed", required = false) boolean closed) {
-        DecodedJWT decodedJWT;
-        try {
-            decodedJWT = JwtUtil.isValidJWT(jwt);
-            //must get ticket list because tickets cannot track techs
-            List<Ticket> tickets = technicianService.getAllTicketsOfTech(decodedJWT.getClaim("id").asInt());
+        DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+        List<Ticket> tickets = technicianService.getAllTicketsOfTech(decodedJWT.getClaim("id").asInt());
 
-            for (Ticket t : tickets) {
-                if (t.getTicketId().equals(ticket.getTicketId())) {
-                    if (closed)
-                        return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.OK);
-                    else
-                        return new ResponseEntity<>(technicianService.escalateTicketStatus(ticket), HttpStatus.OK);
+        for(Ticket t: tickets) {
+            if(t.getTicketId().equals(ticket.getTicketId())) {
+                if(closed) {
+                    logger.info("Ticket " + ticket.getTicketId() + " has been closed by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
+                    return technicianService.closeTicket(ticket);
+                } else {
+                    logger.info("Ticket " + ticket.getTicketId() + " has been escalated by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
+                    return technicianService.escalateTicketStatus(ticket);
                 }
             }
             throw new TicketNotFoundException("Ticket not found");
