@@ -104,27 +104,29 @@ public class TechnicianController {
         DecodedJWT decodedJWT;
         try {
             decodedJWT = JwtUtil.isValidJWT(jwt);
-        } catch (JWTVerificationException e) {
-            logger.warn(e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-        }
 
         Integer id = decodedJWT.getClaim("id").asInt();
         TechTicket techTicket = null;
         if (techTickPK.getTechId().equals(id)) {
-            techTicket = new TechTicket(techTickPK);
             Technician technician = technicianService.getTechnicianById(id);
+            techTicket = technicianService.AssignTicketToSelf(technician, techTickPK.getTicketId());
             logger.info("Assigned ticket " + techTickPK.getTicketId() + " to " + technician.getDisplayName());
-            return new ResponseEntity<>(techTickPK ,HttpStatus.CREATED);
+            return new ResponseEntity<>(techTicket.getPk() ,HttpStatus.CREATED);
 
         } else if (!techTickPK.getTechId().equals(id) && decodedJWT.getClaim("role").asString().equals("ADMIN")) {
 
             Technician technician = technicianService.getTechnicianById(id);
             logger.info("An Admin assigned ticket " + techTickPK.getTicketId() + " to " + technician.getDisplayName());
             techTicket = technicianService.AssignTicketToOther((Admin) technician, techTickPK.getTechId(), techTickPK.getTicketId());
-            return new ResponseEntity<>(techTickPK ,HttpStatus.CREATED);
+            return new ResponseEntity<>(techTicket.getPk() ,HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Cannot assign ticket", HttpStatus.FORBIDDEN);
+        }
+        } catch (JWTVerificationException e) {
+            logger.warn(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        } catch (TicketNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -2,6 +2,7 @@ package com.services;
 
 
 import com.entities.*;
+import com.exceptions.TicketNotFoundException;
 import com.repos.TechTicketRepo;
 import com.repos.TechnicianRepo;
 import com.repos.TicketRepo;
@@ -80,7 +81,7 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public TechTicket AssignTicketToSelf(Technician technician, int ticketId) {
+    public TechTicket AssignTicketToSelf(Technician technician, int ticketId) throws TicketNotFoundException{
         Optional op = ticketRepo.findById(ticketId);
         if (op.isPresent()) {
             Ticket ticket = (Ticket) op.get();
@@ -88,19 +89,21 @@ public class TechnicianServiceImpl  implements TechnicianService{
             techTicketRepo.save(techTicket);
             return techTicket;
         }else{
-            return null;
+            throw new TicketNotFoundException("Ticket not found.");
         }
     }
 
     @Override
-    public TechTicket AssignTicketToOther(Admin admin, int techId, int ticketId){
+    public TechTicket AssignTicketToOther(Admin admin, int techId, int ticketId) throws TicketNotFoundException{
         Optional op = ticketRepo.findById(ticketId);
         if(op.isPresent()){
             Ticket ticket = (Ticket) op.get();
             Technician technician = technicianRepo.findById(techId).get();
-            return new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
+            TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
+            techTicketRepo.save(techTicket);
+            return techTicket;
         }else{
-            return null;
+            throw new TicketNotFoundException("Ticket not found.");
         }
     }
 
