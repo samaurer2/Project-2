@@ -2,6 +2,7 @@ package com.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.Client;
 import com.entities.Technician;
@@ -73,7 +74,7 @@ public class JwtUtil {
     }
 
 
-    public static DecodedJWT isValidJWT(String token){
+    public static DecodedJWT isValidJWT(String token) throws JWTVerificationException {
         return JWT.require(algorithm).build().verify(token);
     }
 

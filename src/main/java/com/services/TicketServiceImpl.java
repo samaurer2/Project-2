@@ -1,7 +1,9 @@
 package com.services;
 
 import com.entities.Ticket;
+import com.exceptions.RequiredFieldsException;
 import com.exceptions.TicketNotFoundException;
+import com.exceptions.UserNotFoundException;
 import com.repos.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,11 +46,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket createTicket(Ticket ticket) {
+    public Ticket createTicket(Ticket ticket) throws RequiredFieldsException {
         if (ticket.getClientId() == null)
-            return null;
+            throw new RequiredFieldsException("Client id cannot be null.");
         if (ticket.getDescription() == null)
-            return null;
+            throw new RequiredFieldsException("Description cannot be null.");
         ticket.setEpochStart(System.currentTimeMillis());
         ticket = ticketRepo.save(ticket);
         return ticket;

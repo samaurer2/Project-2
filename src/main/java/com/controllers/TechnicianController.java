@@ -1,22 +1,22 @@
 package com.controllers;
 
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.*;
 import com.exceptions.LoginException;
+import com.exceptions.TicketNotFoundException;
 import com.exceptions.UserNotFoundException;
 import com.services.TechnicianService;
 import com.util.JwtUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,29 +35,28 @@ public class TechnicianController {
     @ResponseBody
     @ResponseStatus(HttpStatus.ACCEPTED)
     //@ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<Object> techLogin(@RequestBody Technician technician){
+    public ResponseEntity<Object> techLogin(@RequestBody Technician technician) {
 
         String jwt = null;
         try {
             jwt = JwtUtil.generateJwtForTech(technician.getUserName(), technician.getPassword());
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-            System.out.println(decodedJWT);
             String username = decodedJWT.getClaim("userName").asString();
 
             logger.info(username + " has logged on.");
-            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(jwt, HttpStatus.OK);
-            return responseEntity;
+            return new ResponseEntity<>(jwt, HttpStatus.OK);
 
         } catch (UserNotFoundException e) {
             logger.warn(e.getMessage());
-            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-            return responseEntity;
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 
         } catch (LoginException e) {
             logger.warn(e.getMessage());
-            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.BANDWIDTH_LIMIT_EXCEEDED);
-            return responseEntity;
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 
+        } catch (JWTVerificationException e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
 
     }
@@ -66,79 +65,93 @@ public class TechnicianController {
     @ResponseBody
     public ResponseEntity<Object> getTechnician(@RequestParam(value = "id", required = false) Integer id, @RequestParam(value = "name", required = false) String name) {
         List<Technician> technicians = new ArrayList<>();
-        if(id != null && name != null) {
-            Technician tech = technicianService.getTech(name);
+        Technician tech;
+        if (id != null && name != null) {
+            tech = technicianService.getTech(name);
             if (tech.getId().equals(id))
                 technicians.add(tech);
-        }
-
-        else if((id == null) && (name != null))
+        } else if ((id == null) && (name != null))
             technicians.add(technicianService.getTech(name));
 
-        else if((name == null) && (id != null))
+        else if ((name == null) && (id != null))
             technicians.add(technicianService.getTechnicianById(id));
 
-        else if((name == null) && (id == null))
+        else if ((name == null) && (id == null))
             technicians = technicianService.getAllTechnicians();
 
-        ResponseEntity<Object> responseEntity = new ResponseEntity<>(technicians, HttpStatus.ACCEPTED);
-        return responseEntity;
+        if (technicians.size() == 0)
+            return new ResponseEntity<>("Technician not Found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(technicians, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/tech/ticket")
     @ResponseBody
-    public List<Ticket> getAllTicketsOfTech(@RequestParam(value = "id", required = false) Integer techId, @RequestParam(value = "name", required = false) String name) {
+    public ResponseEntity<Object> getAllTicketsOfTech(@RequestParam(value = "id", required = false) Integer techId, @RequestParam(value = "name", required = false) String name) {
         List<Ticket> tickets = new ArrayList<>();
-        if((name == null) && (techId == null)) {
-            return tickets;
-        } else if ((name != null) && (techId==null)) {
-            return technicianService.getAllTicketsOfTech(name);
-        } else if ((name == null) && (techId!=null)) {
-            return technicianService.getAllTicketsOfTech(techId);
+        if ((name != null) && (techId == null)) {
+            tickets = technicianService.getAllTicketsOfTech(name);
+        } else if ((name == null) && (techId != null)) {
+            tickets = technicianService.getAllTicketsOfTech(techId);
         } else {
-            return technicianService.getAllTicketsOfTech(name);
+            tickets = technicianService.getAllTicketsOfTech(name);
         }
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     @PostMapping("/tech/ticket")
     @ResponseBody
-    public TechTicket assignTicket(@RequestBody TechTickPK techTicket, @RequestHeader("Authorization") String jwt) {
-        DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+    public ResponseEntity<Object> assignTicket(@RequestBody TechTickPK techTickPK, @RequestHeader("Authorization") String jwt) {
+        DecodedJWT decodedJWT;
+        try {
+            decodedJWT = JwtUtil.isValidJWT(jwt);
+        } catch (JWTVerificationException e) {
+            logger.warn(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
+
         Integer id = decodedJWT.getClaim("id").asInt();
+        TechTicket techTicket = null;
+        if (techTickPK.getTechId().equals(id)) {
+            Technician technician = technicianService.getTechnicianById(id);
+            techTicket = technicianService.AssignTicketToSelf(technician, techTickPK.getTicketId());
 
-        if (techTicket.getTechId().equals(id)) {
+        } else if (!techTickPK.getTechId().equals(id) && decodedJWT.getClaim("role").asString().equals("ADMIN")) {
 
             Technician technician = technicianService.getTechnicianById(id);
-            logger.info("");
-            return technicianService.AssignTicketToSelf(technician, techTicket.getTicketId());
-
-        } else if (!techTicket.getTechId().equals(id) && decodedJWT.getClaim("role").asString().equals("ADMIN")) {
-
-            Technician technician = technicianService.getTechnicianById(id);
-            return technicianService.AssignTicketToOther((Admin) technician,techTicket.getTechId(), techTicket.getTicketId());
+            techTicket = technicianService.AssignTicketToOther((Admin) technician, techTickPK.getTechId(), techTickPK.getTicketId());
 
         } else {
-            //return 403
-            return null;
+            return new ResponseEntity<>("Cannot assign ticket", HttpStatus.FORBIDDEN);
         }
+        return new ResponseEntity<>(techTicket, HttpStatus.CREATED);
     }
 
     @PutMapping("/tech/ticket")
     @ResponseBody
-    public Ticket modifyTicketStatus(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt, @RequestParam(value = "closed", required = false) boolean closed) {
-        DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-        List<Ticket> tickets = technicianService.getAllTicketsOfTech(decodedJWT.getClaim("id").asInt());
+    public ResponseEntity<Object> modifyTicketStatus(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt, @RequestParam(value = "closed", required = false) boolean closed) {
+        DecodedJWT decodedJWT;
+        try {
+            decodedJWT = JwtUtil.isValidJWT(jwt);
+            //must get ticket list because tickets cannot track techs
+            List<Ticket> tickets = technicianService.getAllTicketsOfTech(decodedJWT.getClaim("id").asInt());
 
-        for(Ticket t: tickets) {
-            if(t.getTicketId().equals(ticket.getTicketId())) {
-                if(closed) {
-                    return technicianService.closeTicket(ticket);
-                } else {
-                    return technicianService.escalateTicketStatus(ticket);
+            for (Ticket t : tickets) {
+                if (t.getTicketId().equals(ticket.getTicketId())) {
+                    if (closed)
+                        return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.OK);
+                    else
+                        return new ResponseEntity<>(technicianService.escalateTicketStatus(ticket), HttpStatus.OK);
                 }
             }
+            throw new TicketNotFoundException("Ticket not found");
+        } catch (JWTVerificationException e) {
+            logger.warn(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        } catch (TicketNotFoundException e) {
+            logger.info(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return null;
+
     }
 
 }

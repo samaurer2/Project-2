@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.Client;
 import com.exceptions.LoginException;
@@ -37,11 +38,10 @@ public class ClientController {
     @ResponseBody
     public ResponseEntity<Object> clientLogin(@RequestBody Client client){
 
-        String jwt = null;
+        DecodedJWT decodedJWT;
         try {
-            jwt = JwtUtil.generateJwtForClient(client.getUserName(), client.getPassword());
-            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-            System.out.println(decodedJWT);
+            String jwt = JwtUtil.generateJwtForClient(client.getUserName(), client.getPassword());
+            decodedJWT = JwtUtil.isValidJWT(jwt);
             String username = decodedJWT.getClaim("userName").asString();
 
             logger.info(username + " has logged on.");
@@ -50,14 +50,16 @@ public class ClientController {
 
         } catch (UserNotFoundException e) {
             logger.warn(e.getMessage());
-            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             return responseEntity;
 
         } catch (LoginException e) {
             logger.warn(e.getMessage());
-            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.BANDWIDTH_LIMIT_EXCEEDED);
+            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
             return responseEntity;
-
+        } catch (JWTVerificationException e) {
+            logger.warn(e.getMessage());
+            return new ResponseEntity<>("User not found.", HttpStatus.NOT_FOUND);
         }
     }
 
