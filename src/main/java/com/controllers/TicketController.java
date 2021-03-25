@@ -85,7 +85,6 @@ public class TicketController {
             String role = decodedJWT.getClaim("role").asString();
             if (ticket.getPriority() != Priority.CLOSED) {
                 if (role.equals("TECH") || role.equals("ADMIN")) {
-                    ticket.setTicketId(decodedJWT.getClaim("id").asInt());
                     logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName").asString());
                     return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
 
@@ -94,8 +93,6 @@ public class TicketController {
                 }
             } else {
                 if (role.equals("TECH") || role.equals("ADMIN")) {
-
-                    ticket.setTicketId(decodedJWT.getClaim("id").asInt());
                     logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName").asString());
                     return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
 

@@ -50,3 +50,51 @@
 2021-03-24 17:31:56 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
 2021-03-24 17:32:23 INFO  TechnicianController:117 - Assigned ticket 226 to technician
 
+2021-03-25 12:23:56 INFO  TechnicianController:46 - admin has logged on.
+2021-03-25 12:24:05 WARN  ClientController:52 - Client not found.
+2021-03-25 12:24:09 WARN  TechnicianController:50 - Incorrect credentials.
+2021-03-25 12:24:21 WARN  ClientController:52 - Client not found.
+2021-03-25 12:24:23 WARN  TechnicianController:50 - Incorrect credentials.
+2021-03-25 12:24:29 INFO  TechnicianController:46 - technician has logged on.
+2021-03-25 12:25:08 INFO  TechnicianController:109 - Assigned ticket 4 to technician
+2021-03-25 12:25:22 INFO  TechnicianController:142 - Ticket 4 has been escalated by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-25 12:25:31 INFO  TechnicianController:152 - Ticket not found
+2021-03-25 12:26:49 INFO  ClientController:47 - client has logged on.
+2021-03-25 12:34:59 INFO  ClientController:47 - client has logged on.
+2021-03-25 12:36:17 INFO  ClientController:47 - client has logged on.
+2021-03-25 12:47:07 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:09 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:09 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:09 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:09 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:09 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:10 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:10 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:23 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:24 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:24 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:28 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:29 WARN  ClientController:52 - Client not found.
+2021-03-25 12:47:39 INFO  ClientController:47 - client has logged on.
+2021-03-25 12:54:56 WARN  ClientController:52 - Client not found.
+2021-03-25 12:55:05 INFO  ClientController:47 - client has logged on.
+2021-03-25 12:58:55 INFO  ClientController:47 - client has logged on.
+2021-03-25 13:02:18 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@4a0307d1
+2021-03-25 13:02:57 INFO  TechnicianController:46 - admin has logged on.
+2021-03-25 13:03:21 INFO  TechnicianController:46 - technician has logged on.
+2021-03-25 13:03:33 INFO  TechnicianController:139 - Ticket 4 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-25 13:03:45 INFO  TechnicianController:152 - Ticket not found
+2021-03-25 13:03:50 INFO  TechnicianController:152 - Ticket not found
+2021-03-25 13:03:51 INFO  TechnicianController:139 - Ticket 4 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-25 13:07:46 INFO  ClientController:47 - client has logged on.
+2021-03-25 13:11:24 INFO  ClientController:47 - client has logged on.
+2021-03-25 13:11:29 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@1b743429
+2021-03-25 13:11:58 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@38a3d17f
+2021-03-25 13:12:04 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@77e9a396
+2021-03-25 13:14:30 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@7db1e249
+2021-03-25 13:14:55 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@2b93998b
+2021-03-25 14:16:53 INFO  ClientController:47 - client has logged on.
+2021-03-25 14:17:00 INFO  TicketController:67 - Ticket 1 has been created by com.auth0.jwt.impl.JsonNodeClaim@73b32d1a
+2021-03-25 14:22:17 INFO  ClientController:47 - client has logged on.
+2021-03-25 14:22:28 INFO  TicketController:67 - A new ticket has been created by client
+2021-03-25 14:24:12 INFO  TicketController:67 - A new ticket has been created by client
