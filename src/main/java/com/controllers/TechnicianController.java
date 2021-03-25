@@ -140,7 +140,7 @@ public class TechnicianController {
                         return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
                     } else {
                         logger.info("Ticket " + ticket.getTicketId() + " has been escalated by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
-                        return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
+                        return new ResponseEntity<>(technicianService.escalateTicketStatus(ticket), HttpStatus.ACCEPTED);
                     }
                 }
             }
