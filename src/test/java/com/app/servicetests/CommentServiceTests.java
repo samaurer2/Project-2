@@ -81,7 +81,7 @@ public class CommentServiceTests {
             comment.getCommentId(0);
             comment.setCmnt("Dummy data");
             comment = commentService.createComment(comment);
-            Assertions.assertEquals(git commit);
+            Assertions.assertNotEquals(0, comment.getEpochTime());
         } catch (Exception e) {
             Assertions.fail();
         }
