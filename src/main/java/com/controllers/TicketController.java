@@ -63,8 +63,8 @@ public class TicketController {
             DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
             if (decodedJWT.getClaim("role").asString().equals("client")) {
 
-                ticket.setTicketId(decodedJWT.getClaim("id").asInt());
-                logger.info("Ticket " + ticket.getTicketId() + " has been created by " + decodedJWT.getClaim("userName"));
+                ticket.setClientId(decodedJWT.getClaim("id").asInt());
+                logger.info("A new ticket has been created by " + decodedJWT.getClaim("userName").asString());
                 return new ResponseEntity<>(ticketService.createTicket(ticket), HttpStatus.CREATED);
 
             } else {
@@ -86,7 +86,7 @@ public class TicketController {
             if (ticket.getPriority() != Priority.CLOSED) {
                 if (role.equals("TECH") || role.equals("ADMIN")) {
                     ticket.setTicketId(decodedJWT.getClaim("id").asInt());
-                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
+                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName").asString());
                     return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
 
                 } else {
@@ -96,7 +96,7 @@ public class TicketController {
                 if (role.equals("TECH") || role.equals("ADMIN")) {
 
                     ticket.setTicketId(decodedJWT.getClaim("id").asInt());
-                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
+                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName").asString());
                     return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
 
                 } else {
