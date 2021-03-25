@@ -41,7 +41,7 @@ public class CommentServiceTests {
 
     @BeforeAll
     static void setup() {
-        commentService = new CommentServiceImpl();
+        commentService = new CommentServiceImpl(commentRepo, ticketRepo);
 
         commentTestList = new ArrayList<>();
         for (int i = 0; i < 10; ++i) {
@@ -74,7 +74,6 @@ public class CommentServiceTests {
         Mockito.when(commentRepo.findById(1)).thenReturn(Optional.of(commentTestList.get(2)));
         Mockito.when(commentRepo.save(any(Comment.class))).thenReturn(testComment);
         Mockito.when(ticketRepo.findById(anyInt())).thenReturn(Optional.of(testTicket));
-        commentService = new CommentServiceImpl();
     }
 
     @Test
@@ -82,7 +81,6 @@ public class CommentServiceTests {
         try {
             List<Comment> comments = commentService.getAllCommentsForTicket(1);
             for (Comment c: comments) {
-                System.out.println(c);
                 Assertions.assertEquals(1, c.getTicketId());
             }
         } catch (Exception e) {
