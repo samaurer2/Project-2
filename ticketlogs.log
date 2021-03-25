@@ -49,12 +49,3 @@
 2021-03-24 17:29:53 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
 2021-03-24 17:31:56 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
 2021-03-24 17:32:23 INFO  TechnicianController:117 - Assigned ticket 226 to technician
-
-2021-03-25 11:19:26 INFO  TechnicianController:152 - Ticket not found
-2021-03-25 11:19:47 INFO  TechnicianController:152 - Ticket not found
-2021-03-25 11:22:32 INFO  TechnicianController:115 - An Admin assigned ticket 32 to admin
-2021-03-25 11:22:38 INFO  TechnicianController:152 - Ticket not found
-2021-03-25 11:23:08 INFO  TechnicianController:109 - Assigned ticket 32 to admin
-2021-03-25 11:23:15 INFO  TechnicianController:142 - Ticket 32 has been escalated by Admin{type='ADMIN'}
-2021-03-25 11:24:08 INFO  TechnicianController:139 - Ticket 3 has been closed by Admin{type='ADMIN'}
-2021-03-25 11:24:16 INFO  TechnicianController:139 - Ticket 32 has been closed by Admin{type='ADMIN'}
