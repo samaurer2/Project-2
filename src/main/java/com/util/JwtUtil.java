@@ -31,7 +31,6 @@ public class JwtUtil {
     @Autowired
     private TechnicianService technicianService;
 
-    @PostConstruct
     private void init(){
         cserv = this.clientService;
         tserv = this.technicianService;

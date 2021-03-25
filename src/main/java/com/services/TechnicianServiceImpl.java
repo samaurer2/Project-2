@@ -52,8 +52,7 @@ public class TechnicianServiceImpl  implements TechnicianService{
 
     @Override
     public List<Technician> getAllTechnicians() {
-        List<Technician> technicians = (List<Technician>) technicianRepo.findAll();
-        return technicians;
+        return (List<Technician>) technicianRepo.findAll();
     }
 
     @Override

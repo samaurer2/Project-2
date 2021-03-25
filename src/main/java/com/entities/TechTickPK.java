@@ -40,9 +40,7 @@ public class TechTickPK implements Serializable {
             return false;
 
         TechTickPK pk = (TechTickPK) obj;
-        if (pk.techId.equals(this.techId) && pk.ticketId.equals(this.ticketId))
-            return true;
-        return false;
+        return (pk.techId.equals(this.techId) && pk.ticketId.equals(this.ticketId));
     }
 
     @Override

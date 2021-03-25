@@ -3,7 +3,6 @@ package com.services;
 import com.entities.Ticket;
 import com.exceptions.RequiredFieldsException;
 import com.exceptions.TicketNotFoundException;
-import com.exceptions.UserNotFoundException;
 import com.repos.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,10 +28,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Ticket getTicketById(int id) throws TicketNotFoundException {
         Ticket ticket;
-        Optional op = ticketRepo.findById(id);
+        Optional<Ticket> op = ticketRepo.findById(id);
 
         if (op.isPresent())
-            ticket = (Ticket) op.get();
+            ticket = op.get();
         else
             throw new TicketNotFoundException("Could not find ticket with specified id.");
 
@@ -63,10 +62,10 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public Ticket updateTicket(Ticket ticket) throws TicketNotFoundException{
-        Optional op = ticketRepo.findById(ticket.getTicketId());
+        Optional<Ticket> op = ticketRepo.findById(ticket.getTicketId());
         if (!op.isPresent())
             throw new TicketNotFoundException("No ticket match id " +ticket.getTicketId());
-        Ticket oldTicket = (Ticket) op.get();
+        Ticket oldTicket = op.get();
 
         if (ticket.getDescription() != null)
             oldTicket.setDescription(ticket.getDescription());
