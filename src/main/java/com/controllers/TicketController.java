@@ -2,9 +2,11 @@ package com.controllers;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.entities.Priority;
 import com.entities.Ticket;
 import com.exceptions.RequiredFieldsException;
 import com.exceptions.TicketNotFoundException;
+import com.services.TechnicianService;
 import com.services.TicketService;
 import com.util.JwtUtil;
 import org.apache.log4j.LogManager;
@@ -24,6 +26,9 @@ public class TicketController {
 
     @Autowired
     TicketService ticketService;
+
+    @Autowired
+    TechnicianService technicianService;
 
     private Logger logger = LogManager.getLogger(TicketController.class);
 
@@ -66,9 +71,7 @@ public class TicketController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-        }catch (JWTVerificationException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (RequiredFieldsException e) {
+        }catch (JWTVerificationException | RequiredFieldsException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
@@ -76,25 +79,45 @@ public class TicketController {
 
     @PutMapping("/tickets/{id}")
     @ResponseBody
-    public ResponseEntity updateTicket(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt) {
+    public ResponseEntity<Object> updateTicket(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt) {
         try {
 
-            DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-            if (decodedJWT.getClaim("role").asString().equals("TECH")){
+            if (ticket.getPriority() != Priority.CLOSED){
+                DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+                if (decodedJWT.getClaim("role").asString().equals("TECH")){
 
-                ticket.setTicketId(decodedJWT.getClaim("id").asInt());
-                logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
-                return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
+                    ticket.setTicketId(decodedJWT.getClaim("id").asInt());
+                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
+                    return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
 
-            }else if (decodedJWT.getClaim("role").asString().equals("ADMIN")) {
+                }else if (decodedJWT.getClaim("role").asString().equals("ADMIN")) {
 
-                ticket.setTicketId(decodedJWT.getClaim("id").asInt());
-                logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
-                return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
+                    ticket.setTicketId(decodedJWT.getClaim("id").asInt());
+                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
+                    return new ResponseEntity<>(ticketService.updateTicket(ticket), HttpStatus.ACCEPTED);
 
-            }else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }else {
+                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }
+            } else {
+                DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+                if (decodedJWT.getClaim("role").asString().equals("TECH")){
+
+                    ticket.setTicketId(decodedJWT.getClaim("id").asInt());
+                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
+                    return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
+
+                }else if (decodedJWT.getClaim("role").asString().equals("ADMIN")) {
+
+                    ticket.setTicketId(decodedJWT.getClaim("id").asInt());
+                    logger.info("Ticket " + ticket.getTicketId() + " has been updated by " + decodedJWT.getClaim("userName"));
+                    return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
+
+                }else {
+                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }
             }
+
 
         } catch (TicketNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

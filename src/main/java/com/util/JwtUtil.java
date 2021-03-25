@@ -19,8 +19,8 @@ import javax.annotation.PostConstruct;
 public class JwtUtil {
 
 
-    private static final String secret ="super secret string no one else should ever have";
-    private static final Algorithm algorithm = Algorithm.HMAC256(secret);
+    private static final String SECRET ="super secret string no one else should ever have";
+    private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET);
 
     private static ClientService cserv;
     private static TechnicianService tserv;
@@ -48,7 +48,7 @@ public class JwtUtil {
                     .withClaim("userName", uName)
                     .withClaim("role", "client")
                     .withClaim("id", cserv.getClient(uName).getId())
-                    .sign(algorithm);
+                    .sign(ALGORITHM);
         }else{
             throw new LoginException();
         }
@@ -66,7 +66,7 @@ public class JwtUtil {
                     .withClaim("userName", uName)
                     .withClaim("role", tserv.getTech(uName).getType())
                     .withClaim("id", tserv.getTech(uName).getId())
-                    .sign(algorithm);
+                    .sign(ALGORITHM);
         }else{
             throw new LoginException();
         }
@@ -75,7 +75,7 @@ public class JwtUtil {
 
 
     public static DecodedJWT isValidJWT(String token) throws JWTVerificationException {
-        return JWT.require(algorithm).build().verify(token);
+        return JWT.require(ALGORITHM).build().verify(token);
     }
 
 

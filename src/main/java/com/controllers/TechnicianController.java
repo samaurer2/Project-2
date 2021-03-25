@@ -46,11 +46,7 @@ public class TechnicianController {
             logger.info(username + " has logged on.");
             return new ResponseEntity<>(jwt, HttpStatus.OK);
 
-        } catch (UserNotFoundException e) {
-            logger.warn(e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-
-        } catch (LoginException e) {
+        } catch (UserNotFoundException | LoginException e) {
             logger.warn(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 
@@ -79,7 +75,7 @@ public class TechnicianController {
         else if ((name == null) && (id == null))
             technicians = technicianService.getAllTechnicians();
 
-        if (technicians.size() == 0)
+        if (technicians.isEmpty())
             return new ResponseEntity<>("Technician not Found", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(technicians, HttpStatus.ACCEPTED);
     }
@@ -87,7 +83,7 @@ public class TechnicianController {
     @GetMapping("/tech/ticket")
     @ResponseBody
     public ResponseEntity<Object> getAllTicketsOfTech(@RequestParam(value = "id", required = false) Integer techId, @RequestParam(value = "name", required = false) String name) {
-        List<Ticket> tickets = new ArrayList<>();
+        List<Ticket> tickets;
         if ((name != null) && (techId == null)) {
             tickets = technicianService.getAllTicketsOfTech(name);
         } else if ((name == null) && (techId != null)) {
@@ -109,7 +105,7 @@ public class TechnicianController {
         TechTicket techTicket = null;
         if (techTickPK.getTechId().equals(id)) {
             Technician technician = technicianService.getTechnicianById(id);
-            techTicket = technicianService.AssignTicketToSelf(technician, techTickPK.getTicketId());
+            techTicket = technicianService.assignTicketToSelf(technician, techTickPK.getTicketId());
             logger.info("Assigned ticket " + techTickPK.getTicketId() + " to " + technician.getDisplayName());
             return new ResponseEntity<>(techTicket.getPk() ,HttpStatus.CREATED);
 
@@ -117,7 +113,7 @@ public class TechnicianController {
 
             Technician technician = technicianService.getTechnicianById(id);
             logger.info("An Admin assigned ticket " + techTickPK.getTicketId() + " to " + technician.getDisplayName());
-            techTicket = technicianService.AssignTicketToOther((Admin) technician, techTickPK.getTechId(), techTickPK.getTicketId());
+            techTicket = technicianService.assignTicketToOther((Admin) technician, techTickPK.getTechId(), techTickPK.getTicketId());
             return new ResponseEntity<>(techTicket.getPk() ,HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Cannot assign ticket", HttpStatus.FORBIDDEN);

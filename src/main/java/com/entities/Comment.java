@@ -17,7 +17,7 @@ public class Comment {
     private Integer clientId;
 
     @Column(name = "comment", nullable = false, updatable = false)
-    private String comment;
+    private String cmnt;
 
     @Column(name = "date_submitted")
     private Long epochTime;
@@ -30,7 +30,7 @@ public class Comment {
     }
 
     public Comment(String comment, Integer ticketId) {
-        this.comment = comment;
+        this.cmnt = comment;
         this.ticketId = ticketId;
     }
 
@@ -58,12 +58,12 @@ public class Comment {
         this.clientId = clientId;
     }
 
-    public String getComment() {
-        return comment;
+    public String getCmnt() {
+        return cmnt;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCmnt(String comment) {
+        this.cmnt = comment;
     }
 
     public Long getEpochTime() {
@@ -88,7 +88,7 @@ public class Comment {
                 "commentId=" + commentId +
                 ", techId=" + techId +
                 ", clientId=" + clientId +
-                ", comment='" + comment + '\'' +
+                ", comment='" + cmnt + '\'' +
                 ", epochTime=" + epochTime +
                 ", ticketId=" + ticketId +
                 '}';
