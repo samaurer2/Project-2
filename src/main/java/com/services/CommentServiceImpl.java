@@ -42,11 +42,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment createComment(String displayName, String text, int tid) throws TicketNotFoundException {
+    public Comment createComment(Comment comment, int tid) throws TicketNotFoundException {
         Optional<Ticket> op = ticketRepo.findById(tid);
-        Comment comment = null;
         if(op.isPresent()){
-            comment = new Comment(text, tid);
+            comment.setEpochTime(System.currentTimeMillis());
             commentRepo.save(comment);
             return comment;
         }
