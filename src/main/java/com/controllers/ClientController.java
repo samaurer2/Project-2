@@ -45,18 +45,13 @@ public class ClientController {
             String username = decodedJWT.getClaim("userName").asString();
 
             logger.info(username + " has logged on.");
-            ResponseEntity<Object> responseEntity = new ResponseEntity<Object>(jwt, HttpStatus.OK);
-            return responseEntity;
 
-        } catch (UserNotFoundException e) {
-            logger.warn(e.getMessage());
-            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-            return responseEntity;
+            return new ResponseEntity<>(jwt, HttpStatus.OK);
 
-        } catch (LoginException e) {
+        } catch (UserNotFoundException | LoginException e) {
             logger.warn(e.getMessage());
-            ResponseEntity<Object> responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-            return responseEntity;
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+
         } catch (JWTVerificationException e) {
             logger.warn(e.getMessage());
             return new ResponseEntity<>("User not found.", HttpStatus.NOT_FOUND);

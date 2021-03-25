@@ -44,9 +44,9 @@ public class TechnicianServiceImpl  implements TechnicianService{
     @Override
     public Technician getTechnicianById(int techId) {
         Technician technician = null;
-        Optional op = technicianRepo.findById(techId);
+        Optional<Technician> op = technicianRepo.findById(techId);
         if(op.isPresent())
-            technician = (Technician) op.get();
+            technician = op.get();
         return technician;
     }
 
@@ -67,9 +67,9 @@ public class TechnicianServiceImpl  implements TechnicianService{
         List<Ticket> tickets = new ArrayList<>();
 
         for(TechTicket tt: techTickets){
-            Optional op = ticketRepo.findById(tt.getPk().getTicketId());
+            Optional<Ticket> op = ticketRepo.findById(tt.getPk().getTicketId());
             if (op.isPresent()){
-                tickets.add((Ticket) op.get());
+                tickets.add(op.get());
             }
         }
 
@@ -84,10 +84,10 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public TechTicket AssignTicketToSelf(Technician technician, int ticketId) throws TicketNotFoundException{
-        Optional op = ticketRepo.findById(ticketId);
+    public TechTicket assignTicketToSelf(Technician technician, int ticketId) throws TicketNotFoundException{
+        Optional<Ticket> op = ticketRepo.findById(ticketId);
         if (op.isPresent()) {
-            Ticket ticket = (Ticket) op.get();
+            Ticket ticket = op.get();
             TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
             techTicketRepo.save(techTicket);
             return techTicket;
@@ -97,10 +97,10 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public TechTicket AssignTicketToOther(Admin admin, int techId, int ticketId) throws TicketNotFoundException{
-        Optional op = ticketRepo.findById(ticketId);
+    public TechTicket assignTicketToOther(Admin admin, int techId, int ticketId) throws TicketNotFoundException{
+        Optional<Ticket> op = ticketRepo.findById(ticketId);
         if(op.isPresent()){
-            Ticket ticket = (Ticket) op.get();
+            Ticket ticket = op.get();
             Technician technician = technicianRepo.findById(techId).get();
             TechTicket techTicket = new TechTicket(new TechTickPK(technician.getId(), ticket.getTicketId()));
             techTicketRepo.save(techTicket);
@@ -112,11 +112,12 @@ public class TechnicianServiceImpl  implements TechnicianService{
 
     @Override
     public Ticket escalateTicketStatus(Ticket ticket){
-        Optional op = ticketRepo.findById(ticket.getTicketId());
+        Optional<Ticket> op = ticketRepo.findById(ticket.getTicketId());
         if (op.isPresent()){
-            ticket = (Ticket) op.get();
+            ticket = op.get();
             if(ticket.getPriority() != Priority.CLOSED || ticket.getPriority() != Priority.HIGH){
                 ticket.setPriority(Priority.values()[ticket.getPriority().ordinal() + 1]);
+                ticketRepo.save(ticket);
                 return ticket;
 
             }else{
@@ -130,12 +131,13 @@ public class TechnicianServiceImpl  implements TechnicianService{
     @Override
     public Ticket closeTicket(Ticket ticket) {
 
-        Optional op = ticketRepo.findById(ticket.getTicketId());
+        Optional<Ticket> op = ticketRepo.findById(ticket.getTicketId());
         if (op.isPresent()){
-            ticket = (Ticket) op.get();
+            ticket = op.get();
             if(ticket.getPriority() != Priority.CLOSED){
                 ticket.setPriority(Priority.CLOSED);
                 ticket.setEpochEnd(System.currentTimeMillis());
+                ticketRepo.save(ticket);
                 return ticket;
 
         }else{

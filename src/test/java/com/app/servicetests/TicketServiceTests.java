@@ -63,10 +63,10 @@ public class TicketServiceTests {
             if(t.getClientId() == 1)
                 otherTestList.add(t);
         }
-        Mockito.when(ticketRepo.findById(eq(1))).thenReturn(java.util.Optional.of(testTicket));
-        Mockito.when(ticketRepo.findById(eq(100))).thenReturn(Optional.empty());
+        Mockito.when(ticketRepo.findById(1)).thenReturn(java.util.Optional.of(testTicket));
+        Mockito.when(ticketRepo.findById(100)).thenReturn(Optional.empty());
         Mockito.when(ticketRepo.findAll()).thenReturn(testTicketList);
-        Mockito.when(ticketRepo.findAllByClientIdEquals(eq(1))).thenReturn(otherTestList);
+        Mockito.when(ticketRepo.findAllByClientIdEquals(1)).thenReturn(otherTestList);
         Mockito.when(ticketRepo.save(any(Ticket.class))).thenReturn(testTicket);
     }
 

@@ -19,7 +19,7 @@ public class CommentRepoTests {
     void createCommentTest(){
 
             Comment comment = new Comment();
-            comment.setComment("A new Comment has Arrived");
+            comment.setCmnt("A new Comment has Arrived");
             comment.setTicketId(4);
             comment.setEpochTime(System.currentTimeMillis());
             comment = commentRepo.save(comment);

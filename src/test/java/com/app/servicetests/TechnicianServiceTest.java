@@ -19,9 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
-import static java.lang.Math.abs;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
@@ -45,7 +43,6 @@ public class TechnicianServiceTest {
     static List<Technician> testTechList;
     static List<Ticket> testTicketList;
     static List<TechTicket> testTechTicketList;
-    static Random random;
 
     @BeforeAll
     static void setup(){
@@ -87,10 +84,9 @@ public class TechnicianServiceTest {
             techTicket.setPk(pk);
             testTechTicketList.add(techTicket);
         }
-        random = new Random();
         Mockito.when(technicianRepo.findAll()).thenReturn(testTechList);
         Mockito.when(techTicketRepo.findAllByTechId(1)).thenReturn(testTechTicketList);
-        Mockito.when(ticketRepo.findById(any())).thenReturn(Optional.of(new Ticket((abs((random.nextInt()%8)+1)),"Dummy Data",1)));
+        Mockito.when(ticketRepo.findById(any())).thenReturn(Optional.of(new Ticket(1,"Dummy Data",1)));
         Mockito.when(ticketRepo.findById(1)).thenReturn(Optional.of(new Ticket(1, "test", 1)));
         Mockito.when(technicianRepo.findTechnicianByUserName("Mr. Admin")).thenReturn(testAdmin);
         Mockito.when(technicianRepo.findTechnicianByUserName("Mr Tech")).thenReturn(testTechnician);
@@ -168,7 +164,7 @@ public class TechnicianServiceTest {
         try {
             Ticket ticket = new Ticket("asdf", 1);
             ticket.setTicketId(1);
-            TechTicket techTicket = technicianService.AssignTicketToSelf(testTechnician, ticket.getTicketId());
+            TechTicket techTicket = technicianService.assignTicketToSelf(testTechnician, ticket.getTicketId());
 
             Assertions.assertEquals(1, techTicket.getPk().getTicketId());
             Assertions.assertEquals(2, techTicket.getPk().getTechId());
@@ -182,7 +178,7 @@ public class TechnicianServiceTest {
         try {
             Ticket ticket = new Ticket("asdf", 1);
             ticket.setTicketId(1);
-            TechTicket techTicket = technicianService.AssignTicketToOther((Admin) testAdmin, testTechnician.getId(), ticket.getTicketId());
+            TechTicket techTicket = technicianService.assignTicketToOther((Admin) testAdmin, testTechnician.getId(), ticket.getTicketId());
             Assertions.assertEquals(1, techTicket.getPk().getTicketId());
             Assertions.assertEquals(2, techTicket.getPk().getTechId());
         } catch (Exception e) {
