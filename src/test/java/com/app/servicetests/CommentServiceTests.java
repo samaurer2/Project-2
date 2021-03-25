@@ -1,10 +1,12 @@
 package com.app.servicetests;
 
 import com.entities.Comment;
+import com.entities.Priority;
+import com.entities.Ticket;
 import com.repos.CommentRepo;
 import com.repos.TicketRepo;
+import com.services.CommentService;
 import com.services.CommentServiceImpl;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,23 +21,28 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class CommentServiceTests {
 
-    @Mock
-    static CommentRepo commentRepo;
-    @Mock
-    static TicketRepo ticketRepo;
+    static CommentService commentService;
 
-    static CommentServiceImpl commentService;
+
+    @Mock
+    static CommentRepo commentRepo = Mockito.mock(CommentRepo.class);
+    @Mock
+    static TicketRepo ticketRepo = Mockito.mock(TicketRepo.class);
+
     static List<Comment> commentTestList;
     static Comment testComment;
+    static Ticket testTicket;
 
     @BeforeAll
     static void setup() {
-        commentService = new CommentServiceImpl();
+        commentService = new CommentServiceImpl(commentRepo, ticketRepo);
+
         commentTestList = new ArrayList<>();
         for (int i = 0; i < 10; ++i) {
             Comment comment = new Comment();
@@ -44,6 +51,7 @@ public class CommentServiceTests {
             else
                 comment.setClientId(100);
 
+            comment.setTicketId(1);
             comment.setCommentId(i);
             comment.setEpochTime(System.currentTimeMillis());
             commentTestList.add(comment);
@@ -55,10 +63,17 @@ public class CommentServiceTests {
         testComment.setTechId(1);
         testComment.setCmnt("Dummy Data");
 
+        testTicket = new Ticket();
+        testTicket.setTicketId(1);
+        testTicket.setPriority(Priority.LOW);
+        testTicket.setClientId(1);
+        testTicket.setDescription("Dummy Ticket");
+        testTicket.setEpochStart(System.currentTimeMillis());
+
         Mockito.when(commentRepo.findAllByTicketIdEquals(1)).thenReturn(commentTestList);
-        Mockito.when(commentRepo.findById(3)).thenReturn(Optional.of(commentTestList.get(2)));
+        Mockito.when(commentRepo.findById(1)).thenReturn(Optional.of(commentTestList.get(2)));
         Mockito.when(commentRepo.save(any(Comment.class))).thenReturn(testComment);
-        commentService = new CommentServiceImpl();
+        Mockito.when(ticketRepo.findById(anyInt())).thenReturn(Optional.of(testTicket));
     }
 
     @Test
@@ -69,6 +84,7 @@ public class CommentServiceTests {
                 Assertions.assertEquals(1, c.getTicketId());
             }
         } catch (Exception e) {
+          e.printStackTrace();
             Assertions.fail();
         }
     }
@@ -78,11 +94,13 @@ public class CommentServiceTests {
         try {
             Comment comment = new Comment();
             comment.setTicketId(2);
-            comment.getCommentId(0);
+            comment.setCommentId(0);
             comment.setCmnt("Dummy data");
-            comment = commentService.createComment(comment);
+            comment = commentService.createComment(comment,2);
             Assertions.assertNotEquals(0, comment.getEpochTime());
+            Assertions.assertEquals(2,comment.getTicketId());
         } catch (Exception e) {
+            e.printStackTrace();
             Assertions.fail();
         }
     }

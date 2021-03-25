@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +24,25 @@ public class CommentServiceImpl implements CommentService {
 
     public CommentServiceImpl(){}
 
-    public CommentServiceImpl(CommentRepo commentRepo){
+    public CommentServiceImpl(CommentRepo commentRepo, TicketRepo ticketRepo) {
         this.commentRepo = commentRepo;
+        this.ticketRepo = ticketRepo;
+    }
+
+    public CommentRepo getCommentRepo() {
+        return commentRepo;
+    }
+
+    public void setCommentRepo(CommentRepo commentRepo) {
+        this.commentRepo = commentRepo;
+    }
+
+    public TicketRepo getTicketRepo() {
+        return ticketRepo;
+    }
+
+    public void setTicketRepo(TicketRepo ticketRepo) {
+        this.ticketRepo = ticketRepo;
     }
 
     @Override
