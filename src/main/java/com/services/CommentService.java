@@ -10,5 +10,5 @@ public interface CommentService {
     // READ all comments for ticket
     List<Comment> getAllCommentsForTicket(int tid) throws TicketNotFoundException;
     // CREATE comment
-    Comment createComment(String displayName, String comment, int tid) throws TicketNotFoundException;
+    Comment createComment(Comment comment, int tid) throws TicketNotFoundException;
 }
