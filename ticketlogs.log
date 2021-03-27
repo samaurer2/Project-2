@@ -48,4 +48,17 @@
 2021-03-24 17:29:46 INFO  TechnicianController:123 - An Admin assigned ticket 228 to admin
 2021-03-24 17:29:53 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
 2021-03-24 17:31:56 INFO  TechnicianController:123 - An Admin assigned ticket 28 to admin
-2021-03-24 17:32:23 INFO  TechnicianController:117 - Assigned ticket 226 to technician
+2021-03-24 17:32:23 INFO  TechnicianController:117 - Assigned ticket 226 to technician2021-03-27 17:22:05 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:22:10 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:22:11 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:22:12 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:22:12 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:22:13 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:22:13 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:23:37 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:23:39 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:26:10 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:26:13 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:26:22 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:27:20 INFO  ClientController:47 - client has logged on.
+2021-03-27 17:27:21 INFO  ClientController:47 - client has logged on.
