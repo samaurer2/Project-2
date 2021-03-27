@@ -8,6 +8,7 @@ import com.exceptions.LoginException;
 import com.exceptions.TicketNotFoundException;
 import com.exceptions.UserNotFoundException;
 import com.services.TechnicianService;
+import com.services.TicketService;
 import com.util.JwtUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -30,6 +31,9 @@ public class TechnicianController {
 
     @Autowired
     TechnicianService technicianService;
+
+    @Autowired
+    TicketService ticketService;
 
     @PostMapping("/tech/login")
     @ResponseBody
@@ -130,9 +134,25 @@ public class TechnicianController {
     @ResponseBody
     public ResponseEntity<Object> modifyTicketStatus(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt, @RequestParam(value = "closed", required = false) boolean closed) {
         DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
+        System.out.println(ticket);
         try {
+            if (decodedJWT.getClaim("role").asString().equals("ADMIN")) {
+                List<Ticket> allTickets = ticketService.getAllTicket();
+                for (Ticket t : allTickets) {
+                    if (t.getTicketId().equals(ticket.getTicketId())) {
+                        if (closed) {
+                            System.out.println("admin closed");
+                            logger.info("Ticket " + ticket.getTicketId() + " has been closed by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
+                            return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
+                        } else {
+                            System.out.println("admin escalated");
+                            logger.info("Ticket " + ticket.getTicketId() + " has been escalated by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
+                            return new ResponseEntity<>(technicianService.escalateTicketStatus(ticket), HttpStatus.ACCEPTED);
+                        }
+                    }
+                }
+            }
             List<Ticket> tickets = technicianService.getAllTicketsOfTech(decodedJWT.getClaim("id").asInt());
-
             for (Ticket t : tickets) {
                 if (t.getTicketId().equals(ticket.getTicketId())) {
                     if (closed) {

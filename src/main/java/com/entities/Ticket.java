@@ -98,6 +98,16 @@ public class Ticket {
         this.clientId = clientId;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "ticketId=" + ticketId +
+                ", description='" + description + '\'' +
+                ", priority=" + priority +
+                ", epochStart=" + epochStart +
+                ", epochEnd=" + epochEnd +
+                ", comments=" + comments +
+                ", clientId=" + clientId +
+                '}';
+    }
 }
