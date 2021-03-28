@@ -3,6 +3,7 @@ package com.controllers;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.dtos.TicketDto;
 import com.entities.*;
 import com.exceptions.LoginException;
 import com.exceptions.TicketNotFoundException;
@@ -87,15 +88,24 @@ public class TechnicianController {
     @GetMapping("/tech/ticket")
     @ResponseBody
     public ResponseEntity<Object> getAllTicketsOfTech(@RequestParam(value = "id", required = false) Integer techId, @RequestParam(value = "name", required = false) String name) {
-        List<Ticket> tickets;
+        List<TicketDto> dtos = new ArrayList<>();
         if ((name != null) && (techId == null)) {
-            tickets = technicianService.getAllTicketsOfTech(name);
+            List<Ticket> ticketList = technicianService.getAllTicketsOfTech(name);
+            for (Ticket t : ticketList){
+                dtos.add(new TicketDto(t));
+            }
         } else if ((name == null) && (techId != null)) {
-            tickets = technicianService.getAllTicketsOfTech(techId);
+            List<Ticket> ticketList = technicianService.getAllTicketsOfTech(techId);
+            for (Ticket t : ticketList){
+                dtos.add(new TicketDto(t));
+            }
         } else {
-            tickets = technicianService.getAllTicketsOfTech(name);
+            List<Ticket> ticketList = technicianService.getAllTicketsOfTech(name);
+            for (Ticket t : ticketList){
+                dtos.add(new TicketDto(t));
+            }
         }
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @PostMapping("/tech/ticket")
@@ -141,13 +151,13 @@ public class TechnicianController {
                 for (Ticket t : allTickets) {
                     if (t.getTicketId().equals(ticket.getTicketId())) {
                         if (closed) {
-                            System.out.println("admin closed");
+                            TicketDto ticketDto = new TicketDto(technicianService.closeTicket(ticket));
                             logger.info("Ticket " + ticket.getTicketId() + " has been closed by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
-                            return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
+                            return new ResponseEntity<>(ticketDto, HttpStatus.ACCEPTED);
                         } else {
-                            System.out.println("admin escalated");
+                            TicketDto ticketDto = new TicketDto(technicianService.escalateTicketStatus(ticket));
                             logger.info("Ticket " + ticket.getTicketId() + " has been escalated by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
-                            return new ResponseEntity<>(technicianService.escalateTicketStatus(ticket), HttpStatus.ACCEPTED);
+                            return new ResponseEntity<>(ticketDto, HttpStatus.ACCEPTED);
                         }
                     }
                 }
@@ -156,11 +166,13 @@ public class TechnicianController {
             for (Ticket t : tickets) {
                 if (t.getTicketId().equals(ticket.getTicketId())) {
                     if (closed) {
+                        TicketDto ticketDto = new TicketDto(technicianService.closeTicket(ticket));
                         logger.info("Ticket " + ticket.getTicketId() + " has been closed by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
-                        return new ResponseEntity<>(technicianService.closeTicket(ticket), HttpStatus.ACCEPTED);
+                        return new ResponseEntity<>(ticketDto, HttpStatus.ACCEPTED);
                     } else {
+                        TicketDto ticketDto = new TicketDto(technicianService.escalateTicketStatus(ticket));
                         logger.info("Ticket " + ticket.getTicketId() + " has been escalated by " + technicianService.getTechnicianById(decodedJWT.getClaim("id").asInt()));
-                        return new ResponseEntity<>(technicianService.escalateTicketStatus(ticket), HttpStatus.ACCEPTED);
+                        return new ResponseEntity<>(ticketDto, HttpStatus.ACCEPTED);
                     }
                 }
             }
