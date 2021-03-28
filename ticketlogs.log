@@ -62,3 +62,17 @@
 2021-03-27 17:26:22 INFO  ClientController:47 - client has logged on.
 2021-03-27 17:27:20 INFO  ClientController:47 - client has logged on.
 2021-03-27 17:27:21 INFO  ClientController:47 - client has logged on.
+2021-03-27 20:09:49 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 15:51:56 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 15:52:08 INFO  TechnicianController:155 - Ticket 32 has been closed by Admin{type='ADMIN'}
+2021-03-28 16:50:42 INFO  TechnicianController:155 - Ticket 32 has been closed by Admin{type='ADMIN'}
+2021-03-28 16:50:46 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:50:48 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:50:50 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:51:00 INFO  TechnicianController:155 - Ticket 32 has been closed by Admin{type='ADMIN'}
+2021-03-28 16:51:01 INFO  TechnicianController:155 - Ticket 32 has been closed by Admin{type='ADMIN'}
+2021-03-28 16:54:06 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:54:08 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:54:10 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:58:39 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 16:58:41 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}

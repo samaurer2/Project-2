@@ -110,25 +110,27 @@ public class TechnicianServiceImpl  implements TechnicianService{
     }
 
     @Override
-    public Ticket escalateTicketStatus(Ticket ticket){
+    public Ticket escalateTicketStatus(Ticket ticket) throws TicketNotFoundException{
         Optional<Ticket> op = ticketRepo.findById(ticket.getTicketId());
+        System.out.println(ticket.getPriority());
         if (op.isPresent()){
             ticket = op.get();
-            if(ticket.getPriority() != Priority.CLOSED || ticket.getPriority() != Priority.HIGH){
+            System.out.println(ticket.getPriority());
+            if(ticket.getPriority() != Priority.CLOSED && ticket.getPriority() != Priority.HIGH){
                 ticket.setPriority(Priority.values()[ticket.getPriority().ordinal() + 1]);
                 ticketRepo.save(ticket);
                 return ticket;
 
             }else{
-                return null;
+                return ticket;
             }
         }else{
-            return null;
+            throw new TicketNotFoundException("Ticket with id " +ticket.getTicketId() + " not found.");
         }
     }
 
     @Override
-    public Ticket closeTicket(Ticket ticket) {
+    public Ticket closeTicket(Ticket ticket) throws TicketNotFoundException{
 
         Optional<Ticket> op = ticketRepo.findById(ticket.getTicketId());
         if (op.isPresent()){
@@ -140,10 +142,10 @@ public class TechnicianServiceImpl  implements TechnicianService{
                 return ticket;
 
         }else{
-                return null;
+                return ticket;
             }
         }else{
-            return null;
+            throw new TicketNotFoundException("Ticket with id " +ticket.getTicketId() + " not found.");
         }
 
     }

@@ -14,6 +14,6 @@ public interface TechnicianService {
     List<Ticket> getAllTicketsOfTech(String uname);
     TechTicket assignTicketToSelf(Technician technician, int ticketId) throws TicketNotFoundException;
     TechTicket assignTicketToOther(Admin admin, int techId, int ticketId) throws TicketNotFoundException;
-    Ticket escalateTicketStatus(Ticket ticket);
-    Ticket closeTicket(Ticket ticket);
+    Ticket escalateTicketStatus(Ticket ticket) throws TicketNotFoundException;
+    Ticket closeTicket(Ticket ticket) throws TicketNotFoundException;
 }
