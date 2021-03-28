@@ -45,7 +45,7 @@ public class TechnicianServiceTest {
     static List<TechTicket> testTechTicketList;
 
     @BeforeAll
-    static void setup(){
+    static void setup() {
         technicianService = new TechnicianServiceImpl(technicianRepo, ticketRepo, techTicketRepo);
 
 
@@ -68,7 +68,7 @@ public class TechnicianServiceTest {
             Ticket ticket = new Ticket();
             ticket.setTicketId(i);
             ticket.setPriority(Priority.LOW);
-            ticket.setClientId(i%2);
+            ticket.setClientId(i % 2);
             ticket.setDescription("Dummy Data");
             ticket.setEpochStart(System.currentTimeMillis());
             testTicketList.add(ticket);
@@ -76,17 +76,17 @@ public class TechnicianServiceTest {
 
         testTechTicketList = new ArrayList<>();
 
-        for(int i = 0; i < 8; ++i){
+        for (int i = 0; i < 8; ++i) {
             TechTicket techTicket = new TechTicket();
             TechTickPK pk = new TechTickPK();
             pk.setTechId(1);
-            pk.setTicketId(i+1);
+            pk.setTicketId(i + 1);
             techTicket.setPk(pk);
             testTechTicketList.add(techTicket);
         }
         Mockito.when(technicianRepo.findAll()).thenReturn(testTechList);
         Mockito.when(techTicketRepo.findAllByTechId(1)).thenReturn(testTechTicketList);
-        Mockito.when(ticketRepo.findById(any())).thenReturn(Optional.of(new Ticket(1,"Dummy Data",1)));
+        Mockito.when(ticketRepo.findById(any())).thenReturn(Optional.of(new Ticket(1, "Dummy Data", 1)));
         Mockito.when(ticketRepo.findById(1)).thenReturn(Optional.of(new Ticket(1, "test", 1)));
         Mockito.when(technicianRepo.findTechnicianByUserName("Mr. Admin")).thenReturn(testAdmin);
         Mockito.when(technicianRepo.findTechnicianByUserName("Mr Tech")).thenReturn(testTechnician);
@@ -95,7 +95,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void get_tech(){
+    public void get_tech() {
 
         Technician technician = this.technicianService.getTech("Mr. Admin");
         Assertions.assertEquals("Mr. Admin", technician.getUserName());
@@ -104,27 +104,27 @@ public class TechnicianServiceTest {
 
     @Test
 
-    public void getTechById(){
+    public void getTechById() {
         Technician technician = technicianService.getTechnicianById(1);
         Assertions.assertEquals(1, technician.getId());
     }
 
     @Test
-    public void getAllTechs(){
+    public void getAllTechs() {
         List<Technician> technicians = technicianService.getAllTechnicians();
-        Assertions.assertTrue(technicians.size()>1);
+        Assertions.assertTrue(technicians.size() > 1);
     }
 
     @Test
-    void getAllTicketsOfTechId(){
+    void getAllTicketsOfTechId() {
         List<Ticket> tickets = technicianService.getAllTicketsOfTech(testAdmin.getId());
         List<Integer> ticketIds = new ArrayList<>();
-        for(TechTicket tt:testTechTicketList) {
-            if(tt.getPk().getTechId() == testAdmin.getId()){
+        for (TechTicket tt : testTechTicketList) {
+            if (tt.getPk().getTechId() == testAdmin.getId()) {
                 ticketIds.add(tt.getPk().getTicketId());
             }
         }
-        for (Ticket t:tickets) {
+        for (Ticket t : tickets) {
             Assertions.assertTrue(ticketIds.contains(t.getTicketId()));
         }
     }
@@ -144,23 +144,32 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void close_ticket(){
+    public void close_ticket() {
 
-        Ticket ticket = new Ticket("asdf", 1);
-        ticket = technicianService.closeTicket(ticket);
-        Assertions.assertEquals(Priority.CLOSED, ticket.getPriority());
-        Assertions.assertNotNull(ticket.getEpochEnd());
+        try {
+            Ticket ticket = new Ticket("asdf", 1);
+            ticket = technicianService.closeTicket(ticket);
+            Assertions.assertEquals(Priority.CLOSED, ticket.getPriority());
+            Assertions.assertNotNull(ticket.getEpochEnd());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
     }
-    @Test
-    public void escalate_ticket(){
 
-        Ticket ticket = new Ticket("asdf", 1);
-        ticket.setTicketId(1);
-        ticket = technicianService.escalateTicketStatus(ticket);
-        Assertions.assertEquals(Priority.MEDIUM, ticket.getPriority());
-    }
     @Test
-    public void assign_to_self_test(){
+    public void escalate_ticket() {
+        try {
+            Ticket ticket = new Ticket("asdf", 1);
+            ticket.setTicketId(1);
+            ticket = technicianService.escalateTicketStatus(ticket);
+            Assertions.assertEquals(Priority.MEDIUM, ticket.getPriority());
+        } catch (Exception e) {
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    public void assign_to_self_test() {
         try {
             Ticket ticket = new Ticket("asdf", 1);
             ticket.setTicketId(1);
