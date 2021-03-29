@@ -15,7 +15,7 @@ sonarqube {
 }
 group = 'com.app'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
@@ -42,4 +42,14 @@ jacocoTestReport {
 }
 plugins.withType(JacocoPlugin) {
 	tasks["test"].finalizedBy 'jacocoTestReport'
+}
+task fatJar(type: Jar) {
+	manifest {
+		attributes 'Implementation-Title': 'Gradle Jar File Example',
+				'Implementation-Version': version,
+				'Main-Class': 'dev.maurer.app.App'
+	}
+	baseName = project.name + '-all'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
 }
