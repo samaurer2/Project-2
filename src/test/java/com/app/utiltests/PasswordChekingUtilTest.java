@@ -4,7 +4,7 @@ import com.util.PasswordCheckingUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class PasswordChekingUtilTest {
+class PasswordChekingUtilTest {
 
     @Test
     void check_password(){

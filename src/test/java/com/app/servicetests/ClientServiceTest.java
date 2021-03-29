@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class ClientServiceTest {
+class ClientServiceTest {
 
 
     ClientService clientService;
@@ -34,7 +34,7 @@ public class ClientServiceTest {
 
 
     @Test
-    public void get_client(){
+    void get_client(){
 
         Client client = this.clientService.getClient("Mr. Mock");
         Assertions.assertEquals("Mr. Mock", client.getUserName());

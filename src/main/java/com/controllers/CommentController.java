@@ -3,7 +3,6 @@ package com.controllers;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.entities.Comment;
-import com.exceptions.RequiredFieldsException;
 import com.exceptions.TicketNotFoundException;
 import com.services.ClientService;
 import com.services.CommentService;
@@ -18,8 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 
 @Component
 @Controller
