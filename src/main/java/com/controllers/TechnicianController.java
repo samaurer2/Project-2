@@ -143,6 +143,7 @@ public class TechnicianController {
     @PutMapping("/tech/ticket")
     @ResponseBody
     public ResponseEntity<Object> modifyTicketStatus(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt, @RequestParam(value = "closed", required = false) boolean closed) {
+        System.out.println(ticket);
         DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
         System.out.println(ticket);
         try {
