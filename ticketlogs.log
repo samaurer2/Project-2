@@ -76,3 +76,48 @@
 2021-03-28 16:54:10 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
 2021-03-28 16:58:39 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
 2021-03-28 16:58:41 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 18:21:51 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 18:22:44 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 18:31:16 INFO  ClientController:47 - client has logged on.
+2021-03-28 18:40:38 INFO  TechnicianController:51 - admin has logged on.
+2021-03-28 18:44:28 INFO  ClientController:47 - client has logged on.
+2021-03-28 18:45:55 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 18:53:32 INFO  ClientController:47 - client has logged on.
+2021-03-28 18:54:13 INFO  TechnicianController:51 - admin has logged on.
+2021-03-28 18:55:19 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 18:59:17 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 18:59:20 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 18:59:36 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 19:02:49 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:04:06 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:04:25 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:10:07 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:12:30 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:37:00 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:37:12 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 19:39:45 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 19:40:07 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 19:41:48 WARN  TechnicianController:55 - Incorrect credentials.
+2021-03-28 19:44:33 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 19:44:53 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 19:46:45 WARN  ClientController:52 - Client not found.
+2021-03-28 19:46:51 WARN  ClientController:52 - Incorrect credentials.
+2021-03-28 19:47:21 WARN  ClientController:52 - Client not found.
+2021-03-28 19:49:31 WARN  ClientController:52 - Client not found.
+2021-03-28 19:58:29 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 20:03:33 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 20:03:50 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 20:03:55 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 20:04:03 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 20:07:23 WARN  ClientController:52 - Client not found.
+2021-03-28 20:18:59 WARN  ClientController:52 - Client not found.
+2021-03-28 20:19:01 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 20:19:07 INFO  ClientController:47 - client has logged on.
+2021-03-28 20:19:12 INFO  TicketController:82 - A new ticket has been created by client
+2021-03-28 20:20:32 INFO  ClientController:47 - client has logged on.
+2021-03-28 20:20:38 INFO  CommentController:61 - A new comment for ticket 15 has been created.
+2021-03-28 20:20:50 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 20:20:58 INFO  TechnicianController:123 - Assigned ticket 15 to technician
+2021-03-28 20:29:45 INFO  ClientController:47 - client has logged on.
+2021-03-28 20:32:58 INFO  ClientController:47 - client has logged on.
+2021-03-28 20:33:41 INFO  ClientController:47 - client has logged on.
