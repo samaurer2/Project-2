@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
- class TechnicianServiceTest {
+class TechnicianServiceTest {
 
     static TechnicianService technicianService;
 
