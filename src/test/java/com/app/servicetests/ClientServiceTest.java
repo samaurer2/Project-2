@@ -38,7 +38,6 @@ public class ClientServiceTest {
 
         Client client = this.clientService.getClient("Mr. Mock");
         Assertions.assertEquals("Mr. Mock", client.getUserName());
-        System.out.println(client);
     }
 
 }

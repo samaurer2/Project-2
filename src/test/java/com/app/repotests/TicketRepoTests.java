@@ -18,14 +18,9 @@ public class TicketRepoTests {
     TicketRepo ticketRepo;
 
     @Test
-    void contextLoads() {
-    }
-
-    @Test
     void createTicketTest(){
         Ticket ticket = new Ticket("A new problem has arrived!", 1);
         ticket = ticketRepo.save(ticket);
-        System.out.println(ticket);
         Assertions.assertNotNull(ticket.getTicketId());
         Assertions.assertEquals(Priority.LOW, ticket.getPriority());
     }

@@ -65,6 +65,7 @@ public class CommentController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         }catch (JWTVerificationException e) {
+            logger.warn(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
