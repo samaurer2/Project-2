@@ -82,6 +82,7 @@ public class TicketController {
                 ticket.setClientId(decodedJWT.getClaim("id").asInt());
                 logger.info("A new ticket has been created by " + decodedJWT.getClaim("userName").asString());
                 ticket.setPriority(Priority.LOW);
+                //please
                 TicketDto ticketDto = new TicketDto(ticketService.createTicket(ticket));
 
                 return new ResponseEntity<>(ticketDto, HttpStatus.CREATED);
