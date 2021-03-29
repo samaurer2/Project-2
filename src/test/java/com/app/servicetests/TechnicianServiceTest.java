@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class TechnicianServiceTest {
+ class TechnicianServiceTest {
 
     static TechnicianService technicianService;
 
@@ -95,7 +95,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void get_tech() {
+     void get_tech() {
 
         Technician technician = this.technicianService.getTech("Mr. Admin");
         Assertions.assertEquals("Mr. Admin", technician.getUserName());
@@ -104,13 +104,13 @@ public class TechnicianServiceTest {
 
     @Test
 
-    public void getTechById() {
+     void getTechById() {
         Technician technician = technicianService.getTechnicianById(1);
         Assertions.assertEquals(1, technician.getId());
     }
 
     @Test
-    public void getAllTechs() {
+     void getAllTechs() {
         List<Technician> technicians = technicianService.getAllTechnicians();
         Assertions.assertTrue(technicians.size() > 1);
     }
@@ -144,7 +144,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void close_ticket() {
+     void close_ticket() {
 
         try {
             Ticket ticket = new Ticket("asdf", 1);
@@ -157,7 +157,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void escalate_ticket() {
+    void escalate_ticket() {
         try {
             Ticket ticket = new Ticket("asdf", 1);
             ticket.setTicketId(1);
@@ -169,7 +169,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void assign_to_self_test() {
+    void assign_to_self_test() {
         try {
             Ticket ticket = new Ticket("asdf", 1);
             ticket.setTicketId(1);
@@ -183,7 +183,7 @@ public class TechnicianServiceTest {
     }
 
     @Test
-    public void assign_to_other() {
+    void assign_to_other() {
         try {
             Ticket ticket = new Ticket("asdf", 1);
             ticket.setTicketId(1);

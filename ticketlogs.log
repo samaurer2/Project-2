@@ -76,3 +76,33 @@
 2021-03-28 16:54:10 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
 2021-03-28 16:58:39 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
 2021-03-28 16:58:41 INFO  TechnicianController:159 - Ticket 32 has been escalated by Admin{type='ADMIN'}
+2021-03-28 17:25:55 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 17:26:28 INFO  TechnicianController:170 - Ticket 3 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:26:29 INFO  TechnicianController:170 - Ticket 3 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:26:29 INFO  TechnicianController:170 - Ticket 3 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:26:41 INFO  TechnicianController:170 - Ticket 26 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:27:17 INFO  TechnicianController:170 - Ticket 32 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:27:23 INFO  TechnicianController:170 - Ticket 32 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:27:37 INFO  TechnicianController:170 - Ticket 20 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:27:41 INFO  TechnicianController:170 - Ticket 20 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:28:56 INFO  TechnicianController:170 - Ticket 4 has been closed by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:40:37 INFO  TechnicianController:160 - Ticket 60 has been escalated by Admin{type='ADMIN'}
+2021-03-28 17:42:32 INFO  TechnicianController:123 - Assigned ticket 33 to technician
+2021-03-28 17:42:47 INFO  TechnicianController:175 - Ticket 60 has been escalated by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:48:00 INFO  TechnicianController:175 - Ticket 33 has been escalated by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 17:48:15 INFO  TechnicianController:51 - admin has logged on.
+2021-03-28 17:48:19 INFO  TechnicianController:160 - Ticket 14 has been escalated by Admin{type='ADMIN'}
+2021-03-28 17:48:22 INFO  TechnicianController:160 - Ticket 60 has been escalated by Admin{type='ADMIN'}
+2021-03-28 17:48:26 INFO  TechnicianController:160 - Ticket 19 has been escalated by Admin{type='ADMIN'}
+2021-03-28 17:48:32 INFO  TechnicianController:160 - Ticket 36 has been escalated by Admin{type='ADMIN'}
+2021-03-28 17:49:22 WARN  TechnicianController:55 - Technician not found.
+2021-03-28 17:49:30 INFO  TechnicianController:51 - admin has logged on.
+2021-03-28 18:15:48 WARN  ClientController:52 - Client not found.
+2021-03-28 18:15:57 INFO  ClientController:47 - client has logged on.
+2021-03-28 19:16:25 INFO  TechnicianController:51 - technician has logged on.
+2021-03-28 19:16:38 INFO  TechnicianController:175 - Ticket 14 has been escalated by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 19:16:43 INFO  TechnicianController:175 - Ticket 7 has been escalated by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 19:16:47 INFO  TechnicianController:175 - Ticket 33 has been escalated by Technician{id=1, displayName='technician', userName='technician', password='$2a$04$.W5r140uCHkCl9W6M7G6c.DH8Oaj04tE/Kkew75hIUGCbwuingBAK', type='TECH'}
+2021-03-28 19:17:03 INFO  TechnicianController:51 - admin has logged on.
+2021-03-28 19:17:11 INFO  TechnicianController:160 - Ticket 6 has been escalated by Admin{type='ADMIN'}
+2021-03-28 19:17:14 INFO  TechnicianController:160 - Ticket 18 has been escalated by Admin{type='ADMIN'}

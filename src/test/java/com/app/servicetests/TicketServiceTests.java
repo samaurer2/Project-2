@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.eq;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class TicketServiceTests {
+class TicketServiceTests {
 
 
     static TicketService ticketService;
