@@ -144,7 +144,6 @@ public class TechnicianController {
     @ResponseBody
     public ResponseEntity<Object> modifyTicketStatus(@RequestBody Ticket ticket, @RequestHeader("Authorization") String jwt, @RequestParam(value = "closed", required = false) boolean closed) {
         DecodedJWT decodedJWT = JwtUtil.isValidJWT(jwt);
-        System.out.println(ticket);
         try {
             if (decodedJWT.getClaim("role").asString().equals("ADMIN")) {
                 List<Ticket> allTickets = ticketService.getAllTicket();

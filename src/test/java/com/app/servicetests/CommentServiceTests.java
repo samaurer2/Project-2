@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class CommentServiceTests {
+class CommentServiceTests {
 
     static CommentService commentService;
 

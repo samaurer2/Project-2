@@ -55,6 +55,7 @@ public class TicketController {
             TicketDto ticketDto = new TicketDto(ticketService.getTicketById(ticketId));
             return new ResponseEntity<>(ticketDto, HttpStatus.OK);
         } catch (TicketNotFoundException e) {
+            logger.warn(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
@@ -88,6 +89,7 @@ public class TicketController {
             }
 
         } catch (JWTVerificationException | RequiredFieldsException e) {
+            logger.warn(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
@@ -121,6 +123,7 @@ public class TicketController {
 
 
         } catch (TicketNotFoundException e) {
+            logger.info(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
