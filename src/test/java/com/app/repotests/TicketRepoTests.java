@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class TicketRepoTests {
+class TicketRepoTests {
 
     @Autowired
     TicketRepo ticketRepo;

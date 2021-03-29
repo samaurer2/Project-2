@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class TechTicketRepoTests {
+class TechTicketRepoTests {
 
     @Autowired
     TechTicketRepo techTicketRepo;
@@ -28,7 +28,6 @@ public class TechTicketRepoTests {
         List<TechTicket> techTickets = techTicketRepo.findAllByTechId(2);
         for (TechTicket ticket: techTickets) {
             Assertions.assertEquals(2,ticket.getPk().getTechId());
-            System.out.println(ticket);
         }
     }
 
@@ -37,7 +36,6 @@ public class TechTicketRepoTests {
         List<TechTicket> techTickets = techTicketRepo.findAllByTicketId(3);
         for (TechTicket ticket: techTickets) {
             Assertions.assertEquals(3,ticket.getPk().getTicketId());
-            System.out.println(ticket);
         }
     }
 }
